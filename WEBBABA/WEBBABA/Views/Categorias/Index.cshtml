@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WEBBABA.Infra.EF.TBCategoria>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de Categoria</h2>
+
+<p>
+    @Html.ActionLink("Criar Categoria", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nomeCategoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dataCadastroCategoria)
+        </th>
+        <th>Ações
+
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomeCategoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataCadastroCategoria)
+        </td>
+        <td>
+            <button type="button" class="btn btn-info"> @Html.ActionLink("Editar", "Edit", new { id = item.idCategoria }, new { @class = "bi bi-pencil-fill" })</button>
+            <button type="button" class="btn btn-secondary"> @Html.ActionLink("Detalhes", "Details", new { id = item.idCategoria })</button>
+            <button type="button" class="btn btn-danger"> @Html.ActionLink("Excluir", "Delete", new { id = item.idCategoria })</button>
+        </td>
+    </tr>
+}
+
+</table>

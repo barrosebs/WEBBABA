@@ -1,8 +1,16 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 2px;
     padding-bottom: 20px;
 }
+a{
+    text-decoration: inherit;
+    color: inherit;
+}
 
+a:hover {
+    text-decoration: inherit;
+    color: inherit;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
