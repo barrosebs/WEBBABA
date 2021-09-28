@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="idAtleta" />
           </Key>
-          <Property Name="idAtleta" Type="int" Nullable="false" />
+          <Property Name="idAtleta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nomeAtleta" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="sobrenomeAtleta" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="apelidoAtleta" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -25,7 +25,7 @@
           <Key>
             <PropertyRef Name="idCategoria" />
           </Key>
-          <Property Name="idCategoria" Type="int" Nullable="false" />
+          <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nomeCategoria" Type="nvarchar" MaxLength="40" />
           <Property Name="dataCadastroCategoria" Type="datetime" />
         </EntityType>
@@ -33,7 +33,7 @@
           <Key>
             <PropertyRef Name="idMensalidade" />
           </Key>
-          <Property Name="idMensalidade" Type="int" Nullable="false" />
+          <Property Name="idMensalidade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idAtletaMensalidade" Type="int" Nullable="false" />
           <Property Name="statusMensalidade" Type="int" Nullable="false" />
           <Property Name="dataMensalidade" Type="datetime2" Precision="7" Nullable="false" />
@@ -61,7 +61,7 @@
           <Key>
             <PropertyRef Name="idSituacao" />
           </Key>
-          <Property Name="idSituacao" Type="int" Nullable="false" />
+          <Property Name="idSituacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nomeSituacao" Type="nvarchar" MaxLength="30" />
           <Property Name="dataCastrodoSituacao" Type="datetime" />
         </EntityType>
@@ -69,7 +69,7 @@
           <Key>
             <PropertyRef Name="idTipoPagemento" />
           </Key>
-          <Property Name="idTipoPagemento" Type="int" Nullable="false" />
+          <Property Name="idTipoPagemento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nomeTipoPagamento" Type="varchar" MaxLength="30" />
         </EntityType>
         <Association Name="FK_TBAtleta_TBSituacao">
@@ -169,7 +169,7 @@
           <Key>
             <PropertyRef Name="idAtleta" />
           </Key>
-          <Property Name="idAtleta" Type="Int32" Nullable="false" />
+          <Property Name="idAtleta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nomeAtleta" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="sobrenomeAtleta" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="apelidoAtleta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -187,7 +187,7 @@
           <Key>
             <PropertyRef Name="idCategoria" />
           </Key>
-          <Property Name="idCategoria" Type="Int32" Nullable="false" />
+          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nomeCategoria" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="dataCadastroCategoria" Type="DateTime" Precision="3" />
           <NavigationProperty Name="TBRegistroes" Relationship="Self.FK_TBRegistro_TBCategoria" FromRole="TBCategoria" ToRole="TBRegistro" />
@@ -196,7 +196,7 @@
           <Key>
             <PropertyRef Name="idMensalidade" />
           </Key>
-          <Property Name="idMensalidade" Type="Int32" Nullable="false" />
+          <Property Name="idMensalidade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idAtletaMensalidade" Type="Int32" Nullable="false" />
           <Property Name="statusMensalidade" Type="Int32" Nullable="false" />
           <Property Name="dataMensalidade" Type="DateTime" Nullable="false" Precision="7" />
@@ -229,7 +229,7 @@
           <Key>
             <PropertyRef Name="idSituacao" />
           </Key>
-          <Property Name="idSituacao" Type="Int32" Nullable="false" />
+          <Property Name="idSituacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nomeSituacao" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="dataCastrodoSituacao" Type="DateTime" Precision="3" />
           <NavigationProperty Name="TBAtletas" Relationship="Self.FK_TBAtleta_TBSituacao" FromRole="TBSituacao" ToRole="TBAtleta" />
@@ -238,7 +238,7 @@
           <Key>
             <PropertyRef Name="idTipoPagemento" />
           </Key>
-          <Property Name="idTipoPagemento" Type="Int32" Nullable="false" />
+          <Property Name="idTipoPagemento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nomeTipoPagamento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TBRegistroes" Relationship="Self.FK_TBRegistro_TBTipoPagamento" FromRole="TBTipoPagamento" ToRole="TBRegistro" />
         </EntityType>
