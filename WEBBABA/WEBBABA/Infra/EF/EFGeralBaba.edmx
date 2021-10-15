@@ -181,7 +181,7 @@
           <Property Name="posicaoAtleta" Type="Int32" />
           <Property Name="comissaoAtleta" Type="Int32" />
           <NavigationProperty Name="TBSituacao" Relationship="Self.FK_TBAtleta_TBSituacao" FromRole="TBAtleta" ToRole="TBSituacao" />
-          <NavigationProperty Name="TBMensalidades" Relationship="Self.FK_TBMensalidade_TBAtleta" FromRole="TBAtleta" ToRole="TBMensalidade" />
+          <NavigationProperty Name="TBMensalidade" Relationship="Self.FK_TBMensalidade_TBAtleta" FromRole="TBAtleta" ToRole="TBMensalidade" />
         </EntityType>
         <EntityType Name="TBCategoria">
           <Key>
@@ -190,7 +190,7 @@
           <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nomeCategoria" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="dataCadastroCategoria" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="TBRegistroes" Relationship="Self.FK_TBRegistro_TBCategoria" FromRole="TBCategoria" ToRole="TBRegistro" />
+          <NavigationProperty Name="TBRegistro" Relationship="Self.FK_TBRegistro_TBCategoria" FromRole="TBCategoria" ToRole="TBRegistro" />
         </EntityType>
         <EntityType Name="TBMensalidade">
           <Key>
@@ -203,7 +203,7 @@
           <Property Name="dataCadastroMensalidade" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="valorMensalidade" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="TBAtleta" Relationship="Self.FK_TBMensalidade_TBAtleta" FromRole="TBMensalidade" ToRole="TBAtleta" />
-          <NavigationProperty Name="TBRegistroes" Relationship="Self.FK_TBRegistro_TBMensalidade" FromRole="TBMensalidade" ToRole="TBRegistro" />
+          <NavigationProperty Name="TBRegistro" Relationship="Self.FK_TBRegistro_TBMensalidade" FromRole="TBMensalidade" ToRole="TBRegistro" />
         </EntityType>
         <EntityType Name="TBRegistro">
           <Key>
@@ -232,7 +232,7 @@
           <Property Name="idSituacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nomeSituacao" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="dataCastrodoSituacao" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="TBAtletas" Relationship="Self.FK_TBAtleta_TBSituacao" FromRole="TBSituacao" ToRole="TBAtleta" />
+          <NavigationProperty Name="TBAtleta" Relationship="Self.FK_TBAtleta_TBSituacao" FromRole="TBSituacao" ToRole="TBAtleta" />
         </EntityType>
         <EntityType Name="TBTipoPagamento">
           <Key>
@@ -240,7 +240,7 @@
           </Key>
           <Property Name="idTipoPagemento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nomeTipoPagamento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TBRegistroes" Relationship="Self.FK_TBRegistro_TBTipoPagamento" FromRole="TBTipoPagamento" ToRole="TBRegistro" />
+          <NavigationProperty Name="TBRegistro" Relationship="Self.FK_TBRegistro_TBTipoPagamento" FromRole="TBTipoPagamento" ToRole="TBRegistro" />
         </EntityType>
         <Association Name="FK_TBAtleta_TBSituacao">
           <End Role="TBSituacao" Type="Self.TBSituacao" Multiplicity="1" />
@@ -303,31 +303,31 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="solnascenteEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TBAtletas" EntityType="Self.TBAtleta" />
-          <EntitySet Name="TBCategorias" EntityType="Self.TBCategoria" />
-          <EntitySet Name="TBMensalidades" EntityType="Self.TBMensalidade" />
-          <EntitySet Name="TBRegistroes" EntityType="Self.TBRegistro" />
-          <EntitySet Name="TBSituacaos" EntityType="Self.TBSituacao" />
-          <EntitySet Name="TBTipoPagamentoes" EntityType="Self.TBTipoPagamento" />
+          <EntitySet Name="TBAtleta" EntityType="Self.TBAtleta" />
+          <EntitySet Name="TBCategoria" EntityType="Self.TBCategoria" />
+          <EntitySet Name="TBMensalidade" EntityType="Self.TBMensalidade" />
+          <EntitySet Name="TBRegistro" EntityType="Self.TBRegistro" />
+          <EntitySet Name="TBSituacao" EntityType="Self.TBSituacao" />
+          <EntitySet Name="TBTipoPagamento" EntityType="Self.TBTipoPagamento" />
           <AssociationSet Name="FK_TBAtleta_TBSituacao" Association="Self.FK_TBAtleta_TBSituacao">
-            <End Role="TBSituacao" EntitySet="TBSituacaos" />
-            <End Role="TBAtleta" EntitySet="TBAtletas" />
+            <End Role="TBSituacao" EntitySet="TBSituacao" />
+            <End Role="TBAtleta" EntitySet="TBAtleta" />
           </AssociationSet>
           <AssociationSet Name="FK_TBMensalidade_TBAtleta" Association="Self.FK_TBMensalidade_TBAtleta">
-            <End Role="TBAtleta" EntitySet="TBAtletas" />
-            <End Role="TBMensalidade" EntitySet="TBMensalidades" />
+            <End Role="TBAtleta" EntitySet="TBAtleta" />
+            <End Role="TBMensalidade" EntitySet="TBMensalidade" />
           </AssociationSet>
           <AssociationSet Name="FK_TBRegistro_TBCategoria" Association="Self.FK_TBRegistro_TBCategoria">
-            <End Role="TBCategoria" EntitySet="TBCategorias" />
-            <End Role="TBRegistro" EntitySet="TBRegistroes" />
+            <End Role="TBCategoria" EntitySet="TBCategoria" />
+            <End Role="TBRegistro" EntitySet="TBRegistro" />
           </AssociationSet>
           <AssociationSet Name="FK_TBRegistro_TBMensalidade" Association="Self.FK_TBRegistro_TBMensalidade">
-            <End Role="TBMensalidade" EntitySet="TBMensalidades" />
-            <End Role="TBRegistro" EntitySet="TBRegistroes" />
+            <End Role="TBMensalidade" EntitySet="TBMensalidade" />
+            <End Role="TBRegistro" EntitySet="TBRegistro" />
           </AssociationSet>
           <AssociationSet Name="FK_TBRegistro_TBTipoPagamento" Association="Self.FK_TBRegistro_TBTipoPagamento">
-            <End Role="TBTipoPagamento" EntitySet="TBTipoPagamentoes" />
-            <End Role="TBRegistro" EntitySet="TBRegistroes" />
+            <End Role="TBTipoPagamento" EntitySet="TBTipoPagamento" />
+            <End Role="TBRegistro" EntitySet="TBRegistro" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -336,7 +336,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="solnascenteModelStoreContainer" CdmEntityContainer="solnascenteEntities">
-          <EntitySetMapping Name="TBAtletas">
+          <EntitySetMapping Name="TBAtleta">
             <EntityTypeMapping TypeName="solnascenteModel.TBAtleta">
               <MappingFragment StoreEntitySet="TBAtleta">
                 <ScalarProperty Name="idAtleta" ColumnName="idAtleta" />
@@ -353,7 +353,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBCategorias">
+          <EntitySetMapping Name="TBCategoria">
             <EntityTypeMapping TypeName="solnascenteModel.TBCategoria">
               <MappingFragment StoreEntitySet="TBCategoria">
                 <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
@@ -362,7 +362,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBMensalidades">
+          <EntitySetMapping Name="TBMensalidade">
             <EntityTypeMapping TypeName="solnascenteModel.TBMensalidade">
               <MappingFragment StoreEntitySet="TBMensalidade">
                 <ScalarProperty Name="idMensalidade" ColumnName="idMensalidade" />
@@ -374,7 +374,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBRegistroes">
+          <EntitySetMapping Name="TBRegistro">
             <EntityTypeMapping TypeName="solnascenteModel.TBRegistro">
               <MappingFragment StoreEntitySet="TBRegistro">
                 <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
@@ -392,7 +392,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBSituacaos">
+          <EntitySetMapping Name="TBSituacao">
             <EntityTypeMapping TypeName="solnascenteModel.TBSituacao">
               <MappingFragment StoreEntitySet="TBSituacao">
                 <ScalarProperty Name="idSituacao" ColumnName="idSituacao" />
@@ -401,7 +401,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBTipoPagamentoes">
+          <EntitySetMapping Name="TBTipoPagamento">
             <EntityTypeMapping TypeName="solnascenteModel.TBTipoPagamento">
               <MappingFragment StoreEntitySet="TBTipoPagamento">
                 <ScalarProperty Name="idTipoPagemento" ColumnName="idTipoPagemento" />
@@ -423,7 +423,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

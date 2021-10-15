@@ -9,6 +9,8 @@ namespace WEBBABA.Models.ViewModels
 {
     public class AtletaModel
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+
         [Key]
         public int idAtleta { get; set; }
         [DisplayName("Nome do Atleta")]

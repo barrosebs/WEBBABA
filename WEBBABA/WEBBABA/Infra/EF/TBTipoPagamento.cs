@@ -17,13 +17,13 @@ namespace WEBBABA.Infra.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBTipoPagamento()
         {
-            this.TBRegistroes = new HashSet<TBRegistro>();
+            this.TBRegistro = new HashSet<TBRegistro>();
         }
     
         public int idTipoPagemento { get; set; }
         public string nomeTipoPagamento { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBRegistro> TBRegistroes { get; set; }
+        public virtual ICollection<TBRegistro> TBRegistro { get; set; }
     }
 }

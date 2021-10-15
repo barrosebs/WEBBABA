@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WEBBABA.Infra.EF.TBAtleta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nomeAtleta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sobrenomeAtleta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apelidoAtleta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.coleteNumeroAtleta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nascimentoAtleta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telefoneAtleta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dataCadastroAtleta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.posicaoAtleta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comissaoAtleta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TBSituacao.nomeSituacao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomeAtleta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sobrenomeAtleta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apelidoAtleta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.coleteNumeroAtleta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nascimentoAtleta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telefoneAtleta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataCadastroAtleta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.posicaoAtleta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comissaoAtleta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TBSituacao.nomeSituacao)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idAtleta }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idAtleta }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idAtleta })
+        </td>
+    </tr>
+}
+
+</table>

@@ -15,6 +15,6 @@ namespace WEBBABA.Models.ViewModels
         public decimal valorMensalidade { get; set; }
 
         public virtual AtletaModel Atleta { get; set; }
-        public virtual ICollection<TBRegistro> TBRegistroes { get; set; }
+        public virtual ICollection<RegistroModel> Registros { get; set; }
     }
 }

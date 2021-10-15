@@ -12,24 +12,42 @@ namespace WEBBABA.Infra.EF
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Data.Entity.ModelConfiguration.Conventions;
+
     public partial class solnascenteEntities : DbContext
     {
         public solnascenteEntities()
             : base("name=solnascenteEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            //não pluraliza o nome das tabelas
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            //não deleta em cascate
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            //define que qualquer coisa com IdAlgumacoisa seja uma primaryKey
+            modelBuilder.Properties().Where(p => p.Name == p.ReflectedType.Name + "Id")
+            .Configure(p => p.IsKey());
+
+            //define que tudo que string na converão seja varchar
+            modelBuilder.Properties<string>()
+            .Configure(p => p.HasColumnType("varchar"));
+
+            //define um varchar de 100 caracteres como padrão
+            modelBuilder.Properties<string>()
+            .Configure(p => p.HasMaxLength(100));
         }
-    
-        public virtual DbSet<TBAtleta> TBAtletas { get; set; }
-        public virtual DbSet<TBCategoria> TBCategorias { get; set; }
-        public virtual DbSet<TBMensalidade> TBMensalidades { get; set; }
-        public virtual DbSet<TBRegistro> TBRegistroes { get; set; }
-        public virtual DbSet<TBSituacao> TBSituacaos { get; set; }
-        public virtual DbSet<TBTipoPagamento> TBTipoPagamentoes { get; set; }
+
+    public virtual DbSet<TBAtleta> TBAtleta { get; set; }
+    public virtual DbSet<TBCategoria> TBCategoria { get; set; }
+    public virtual DbSet<TBMensalidade> TBMensalidade { get; set; }
+    public virtual DbSet<TBRegistro> TBRegistro { get; set; }
+    public virtual DbSet<TBSituacao> TBSituacao { get; set; }
+    public virtual DbSet<TBTipoPagamento> TBTipoPagamento { get; set; }
     }
 }

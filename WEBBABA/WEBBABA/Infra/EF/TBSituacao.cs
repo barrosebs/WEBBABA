@@ -17,7 +17,7 @@ namespace WEBBABA.Infra.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBSituacao()
         {
-            this.TBAtletas = new HashSet<TBAtleta>();
+            this.TBAtleta = new HashSet<TBAtleta>();
         }
     
         public int idSituacao { get; set; }
@@ -25,6 +25,6 @@ namespace WEBBABA.Infra.EF
         public Nullable<System.DateTime> dataCastrodoSituacao { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBAtleta> TBAtletas { get; set; }
+        public virtual ICollection<TBAtleta> TBAtleta { get; set; }
     }
 }

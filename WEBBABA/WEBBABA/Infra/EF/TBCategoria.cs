@@ -17,7 +17,7 @@ namespace WEBBABA.Infra.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBCategoria()
         {
-            this.TBRegistroes = new HashSet<TBRegistro>();
+            this.TBRegistro = new HashSet<TBRegistro>();
         }
     
         public int idCategoria { get; set; }
@@ -25,6 +25,6 @@ namespace WEBBABA.Infra.EF
         public Nullable<System.DateTime> dataCadastroCategoria { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBRegistro> TBRegistroes { get; set; }
+        public virtual ICollection<TBRegistro> TBRegistro { get; set; }
     }
 }
