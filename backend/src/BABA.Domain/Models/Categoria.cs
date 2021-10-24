@@ -1,3 +1,5 @@
+using System;
+
 namespace BABA.Domain.Models
 {
     public class Categoria
