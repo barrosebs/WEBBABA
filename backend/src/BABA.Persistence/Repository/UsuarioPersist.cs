@@ -25,14 +25,30 @@ namespace BABA.Persistence.Repository
             return await query.ToArrayAsync();
         }
 
-        public Task<Usuario[]> GetAllUsuarioByControleAsync(string nome, bool includeControle = false)
+        public async Task<Usuario[]> GetAllUsuarioByControleAsync(string nome, bool includeControle = false)
         {
-            throw new NotImplementedException();
+            IQueryable<Usuario> query = _babaContext.Usuarios;
+
+            if (includeControle)
+            {
+                //implementar caso inclua condutores para um usuario específico 
+            }
+            query = query.OrderBy(e => e.UsuarioId).Where(c => c.Nome.ToLower().Contains(nome.ToLower()));
+            return await query.ToArrayAsync();
         }
 
-        public Task<Usuario> GetUsuarioByIdAsync(int usuarioId, bool includeControle = false)
+        public async Task<Usuario> GetUsuarioByIdAsync(int usuarioId, bool includeControle = false)
         {
-            throw new NotImplementedException();
+            IQueryable<Usuario> query = _babaContext.Usuarios;
+
+            if (includeControle)
+            {
+                //implementar caso inclua condutores para um usuario específico 
+
+            }
+            query = query.OrderBy(e => e.UsuarioId)
+            .Where(e => e.UsuarioId == usuarioId);
+            return await query.FirstOrDefaultAsync();
         }
     }
 }
