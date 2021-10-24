@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BABA.Persistence.Interface
 {
-    public interface ICategoria
+    public interface ICategoriaPersist
     {
         Task<Categoria[]> GetAllCategoriaByAtletaAsync(string nome, bool includeAtleta= false);
         Task<Categoria[]> GetAllCategoriaAsync();

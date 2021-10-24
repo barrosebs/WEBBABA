@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BABA.Persistence.Interface
 {
-    public interface IControle
+    public interface IControlePersist
     {
         Task<Controle[]> GetAllControleByCondutorAsync(string nome, bool includeAtleta = false);
         Task<Controle[]> GetAllControleAsync();

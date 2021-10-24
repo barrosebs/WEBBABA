@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BABA.Persistence.Interface
 {
-    public interface IAtleta
+    public interface IAtletaPersist 
     {
         Task<Atleta[]> GetAllAtletaByMensalidadeAsync(string nome, bool includeMensalidade= false);
         Task<Atleta[]> GetAllAtletaAsync();

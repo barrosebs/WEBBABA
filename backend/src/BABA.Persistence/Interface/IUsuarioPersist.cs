@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BABA.Persistence.Interface
 {
-    public interface IUsuario
+    public interface IUsuarioPersist
     {
         Task<Usuario[]> GetAllUsuarioByControleAsync(string nome, bool includeControle = false);
         Task<Usuario[]> GetAllUsuarioAsync();
