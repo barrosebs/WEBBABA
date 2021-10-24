@@ -86,7 +86,7 @@ namespace BABA.Application.Services
             }
         }
 
-        public async Task<Atleta[]> GetAllAtletaByAtletaAsync(string atletaNome, bool includeMensalidade = false)
+        public async Task<Atleta[]> GetAllAtletaByMensalidadeAsync(string atletaNome, bool includeMensalidade = false)
         {
             try
             {
