@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace BABA.Domain.Models
 {
     public class Mensalidade
