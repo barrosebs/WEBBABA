@@ -19,7 +19,7 @@ namespace BABA.Persistence.Repository
             _babaContext = babaContext;
         }
 
-        public async Task<Atleta[]> GetAllAtletaAsync(bool includeMensaliade)
+        public async Task<Atleta[]> GetAllAtletaAsync(bool includeMensaliade = false)
         {
             IQueryable<Atleta> query = _babaContext.Atletas;
 

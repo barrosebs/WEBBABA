@@ -28,7 +28,7 @@ namespace BABA.API.Controllers
         {
             try
             {
-                var atletas = await _atletaService.GetAllAtletaAsync(true);
+                var atletas = await _atletaService.GetAllAtletaAsync(false);
                 if (atletas == null) return NotFound("Nenhum atleta encontrado!");
                 return Ok(atletas);
             }
@@ -55,11 +55,11 @@ namespace BABA.API.Controllers
         }
 
         // GET api/<AtletaController>/5
-        [HttpGet("{id}")]
-        public string GetById(int id)
-        {
-            return "value";
-        }
+        //[HttpGet("{id}")]
+        //public string GetById(int id)
+        //{
+        //    return "value";
+        //}
         // POST api/<AtletaController>
         [HttpPost]
         public async Task<IActionResult> Post(Atleta model)
