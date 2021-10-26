@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BABA.Application.Interface;
+using BABA.Application.Services;
 using BABA.Persistence.Context;
+using BABA.Persistence.Interface;
+using BABA.Persistence.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +36,11 @@ namespace BABA.API
             services.AddDbContext<DBBabaContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
+
+            services.AddScoped<IAtletaService, AtletaService>();
+            services.AddScoped<IAllPerssit, AllPersist>();
+            services.AddScoped<IAtletaPersist, AtletaPersist>();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BABA.API", Version = "v1" });

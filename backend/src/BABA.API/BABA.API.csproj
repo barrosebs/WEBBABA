@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BABA.Application\BABA.Application.csproj" />
     <ProjectReference Include="..\BABA.Persistence\BABA.Persistence.csproj" />
   </ItemGroup>
 
