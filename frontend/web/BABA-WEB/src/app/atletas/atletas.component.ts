@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./atletas.component.css']
 })
 export class AtletasComponent implements OnInit {
-  atletas: any;
+  atletas: any = [];
   constructor(private http: HttpClient) { }
 
   ngOnInit() {

@@ -1,6 +1,42 @@
-<p>
-  atletas works!
-</p>
-<div *ngFor="let atleta of atletas">
-  Nome: {{ atleta.nome }}
-</div>
+<form class="row g-2">
+  <div class="col-auto">
+    <label for="buscar" class="visually-hidden">buscar</label>
+    <input type="text" class="form-control"  id="buscar" placeholder="buscar">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3"><i class="fa fa-search fa-2"> </i> Buscar </button>
+  </div>
+</form>
+<table class="table table-striped">
+  <thead class="tread-dark">
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Camisa</th>
+      <th>Data Nascimento</th>
+      <th>Comissão?</th>
+      <th>WhatsApp</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="atletas && atletas.length">
+    <tr *ngFor="let atleta of atletas">
+      <td>#</td>
+      <td>{{atleta.nome}}</td>
+      <td>{{atleta.camisa}}</td>
+      <td>{{atleta.dataNascimento}}</td>
+      <td>{{atleta.comissao}}</td>
+      <td>{{atleta.whatsApp}}</td>
+      <td></td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!atletas.length">
+    <tr >
+      <td colspan="7" class="text-center alert">
+        <div class="alert alert-warning" role="alert">
+          Nenhum atleta encontrado!
+        </div>
+      </td>
+    </tr>
+  </tfoot>
+</table>
