@@ -1,15 +1,20 @@
-<form class="row g-2">
+<div class="row g-2">
   <div class="col-auto">
-    <label for="buscar" class="visually-hidden">buscar</label>
-    <input type="text" class="form-control"  id="buscar" placeholder="buscar">
+    <label for="buscar" >Filtro:</label>
+    <input type="text" class="form-control"  id="buscar" 
+    placeholder="buscar"
+    [(ngModel)]="filtroLista"
+    >
   </div>
   <div class="col-auto">
     <button type="submit" class="btn btn-primary mb-3"><i class="fa fa-search fa-2"> </i> Buscar </button>
   </div>
-</form>
+</div>
+<h4>{{filtroLista}}</h4>
 <table class="table table-striped">
   <thead class="tread-dark">
     <tr>
+      <th><button class="btn btn-primary mb-3" (click)="mostrarImagem()">Mostrar Imagem</button></th>
       <th>#</th>
       <th>Nome</th>
       <th>Camisa</th>
@@ -21,11 +26,17 @@
   </thead>
   <tbody *ngIf="atletas && atletas.length">
     <tr *ngFor="let atleta of atletas">
-      <td>#</td>
+      <td>
+        <img *ngIf="exibirImagem" src="https://localhost:44344/image/{{atleta.imageUrl}}"
+        [style.width.px]="imageLargura"
+        [style.margin.px]="imageMargin"
+        >
+      </td>
+      <td>{{atleta.atletaId}}</td>
       <td>{{atleta.nome}}</td>
       <td>{{atleta.camisa}}</td>
-      <td>{{atleta.dataNascimento}}</td>
-      <td>{{atleta.comissao}}</td>
+      <td>{{atleta.dataNascimento | date : 'dd/MM/yyyy' }}</td>
+      <td>{{atleta.comissao }} </td>
       <td>{{atleta.whatsApp}}</td>
       <td></td>
     </tr>

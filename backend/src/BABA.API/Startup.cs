@@ -58,6 +58,7 @@ namespace BABA.API
             }
 
             //app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseRouting();

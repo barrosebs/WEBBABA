@@ -8,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AtletasComponent implements OnInit {
   atletas: any = [];
+  exibirImagem = false;
+  imageLargura = 60;
+  imageMargin = 5;
+  filtroLista = '';
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -17,11 +21,12 @@ export class AtletasComponent implements OnInit {
     this.http.get('https://localhost:44344/api/atleta').subscribe(
       response => { 
         this.atletas = response;
-        console.log(this.atletas);
        }, error => {
          console.log(error);
-       }
-      
+       }      
     );
+  }
+  mostrarImagem(){
+   this.exibirImagem = !this.exibirImagem
   }
 }

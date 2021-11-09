@@ -13,6 +13,7 @@ namespace BABA.Domain.Models
         public bool Comissao { get; set; }
         public string WhatsApp { get; set; }
         public DateTime DataNascimento { get; set; }
+        public string imageUrl { get; set; }
         public DateTime DataCadastro { get; set; }
         public List<Mensalidade> Mensalidades { get; set; }
     }
