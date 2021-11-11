@@ -1,7 +1,7 @@
 <div class="row g-2">
   <div class="col-auto">
     <label for="buscar" >Filtro:</label>
-    <input type="text" class="form-control"  id="buscar" 
+    <input type="text" class="form-control"  id="buscar"
     placeholder="buscar"
     [(ngModel)]="filtroLista"
     >
@@ -14,7 +14,13 @@
 <table class="table table-striped">
   <thead class="tread-dark">
     <tr>
-      <th><button class="btn btn-primary mb-3" (click)="mostrarImagem()">Mostrar Imagem</button></th>
+      <th>
+
+        <button type="button" class="btn btn-primary mb-3 " (click)="mostrarImagem()" tooltip="mostrar Imagem" >
+          <i class="{{ exibirImagem ? 'fa fa-eye-slash' : 'fa fa-eye' }}"> Imagem</i>
+
+        </button>
+    </th>
       <th>#</th>
       <th>Nome</th>
       <th>Camisa</th>
@@ -27,18 +33,27 @@
   <tbody *ngIf="atletas && atletas.length">
     <tr *ngFor="let atleta of atletas">
       <td>
-        <img *ngIf="exibirImagem" src="https://localhost:44344/image/{{atleta.imageUrl}}"
+
+        <img *ngIf="exibirImagem" src="https://localhost:5001/image/{{ atleta.imageUrl }}"
         [style.width.px]="imageLargura"
         [style.margin.px]="imageMargin"
-        >
+        alt="">
+
       </td>
       <td>{{atleta.atletaId}}</td>
       <td>{{atleta.nome}}</td>
       <td>{{atleta.camisa}}</td>
-      <td>{{atleta.dataNascimento | date : 'dd/MM/yyyy' }}</td>
-      <td>{{atleta.comissao }} </td>
+      <td>{{atleta.dataNascimento | DateTimeFormatPipe }}</td>
+      <td><i class="{{ atleta.comissao ? 'fa fa-thumbs-o-up fa-2x' : 'fa fa-thumbs-o-down fa-2x' }}"></i> </td>
       <td>{{atleta.whatsApp}}</td>
-      <td></td>
+      <td>
+        <button type="submit" id="alempty" aria-label="" value="et" class="btn btn-info mb-3">
+          <i class="fa fa-edit"> 2 </i>
+        </button>
+        <button type="submit" id="alempty" aria-label="" value="et" class="btn btn-danger mb-3">
+          <i class="fa fa-trash"> Imagem </i>
+        </button>
+      </td>
     </tr>
   </tbody>
   <tfoot *ngIf="!atletas.length">
