@@ -1,6 +1,7 @@
 import { Atleta } from './../models/atleta';
 import { AtletaService } from './../service/atleta.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-atletas',
@@ -8,6 +9,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./atletas.component.css']
 })
 export class AtletasComponent implements OnInit {
+
+  atletasFiltrados: Atleta[];
+  atletas: Atleta[];
+  exibirImagem = false;
+  modalRef?: BsModalRef;
+  imageLargura = 60;
+  imageMargin = 5;
+
+    constructor
+    (
+      private atletaService: AtletaService
+      , private modalService: BsModalService
+    )
+    {
+      this.atletasFiltrados = [];
+      this.atletas = [];
+
+    }
 
   _filtroLista = '';
   get filtroLista(): string{
@@ -18,17 +37,9 @@ export class AtletasComponent implements OnInit {
     this.atletasFiltrados = this.filtroLista ? this.filtrarAtletas(this.filtroLista) : this.atletas;
   }
 
-  atletasFiltrados: Atleta[];
-  atletas: Atleta[];
-  exibirImagem = false;
-  imageLargura = 60;
-  imageMargin = 5;
-
-  constructor(private atletaService: AtletaService) {
-    this.atletasFiltrados = [];
-    this.atletas = [];
+  openModal(template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template);
   }
-
   ngOnInit() {
     this.getAtletas()
   }
