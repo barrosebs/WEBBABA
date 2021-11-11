@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AtletasComponent } from './atletas/atletas.component';
 import { MenuComponent } from './menu/menu.component';
+import { DateTimeFormatPipePipe } from './helps/DateTimeFormatPipe.pipe';
 
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
       AtletasComponent,
-      MenuComponent
+      MenuComponent,
+      DateTimeFormatPipePipe
    ],
   imports: [
     BrowserModule,
