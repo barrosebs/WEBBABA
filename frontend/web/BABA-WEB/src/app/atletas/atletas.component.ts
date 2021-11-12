@@ -2,6 +2,7 @@ import { Atleta } from './../models/atleta';
 import { AtletaService } from './../service/atleta.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-atletas',
@@ -12,8 +13,9 @@ export class AtletasComponent implements OnInit {
 
   atletasFiltrados: Atleta[];
   atletas: Atleta[];
-  exibirImagem = false;
   modalRef?: BsModalRef;
+  registerForm!: FormGroup;
+  exibirImagem = false;
   imageLargura = 60;
   imageMargin = 5;
 
@@ -41,6 +43,7 @@ export class AtletasComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
   ngOnInit() {
+    this.validation();
     this.getAtletas()
   }
 
@@ -59,6 +62,22 @@ export class AtletasComponent implements OnInit {
    this.exibirImagem = !this.exibirImagem
   }
 
+  validation(){
+    this.registerForm = new FormGroup({
+      nome: new FormControl('',[Validators.required, Validators.minLength(4), Validators.maxLength(100)]),
+      apelido: new FormControl('',Validators.required),
+      camisa: new FormControl('',Validators.required),
+      posicao: new FormControl('',Validators.required),
+      dataNascimento: new FormControl('',Validators.required),
+      whatsApp: new FormControl('',Validators.required),
+      comissao: new FormControl('',Validators.required),
+      imageUrl: new FormControl('',Validators.required),
+    })
+    console.log(this.validation);
+  }
+  salvarAlteracao(){
+
+  }
   filtrarAtletas(filtrarPor: string): Atleta[]{
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.atletas.filter(
