@@ -6,14 +6,17 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule} from 'ngx-bootstrap/modal';
 import { TooltipModule} from 'ngx-bootstrap/tooltip';
 
-import  { AtletaService } from './service/atleta.service';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
+import  { AtletaService } from './services/atleta.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AtletasComponent } from './atletas/atletas.component';
 import { MenuComponent } from './menu/menu.component';
 
-import { DateTimeFormatPipePipe } from './helps/DateTimeFormatPipe.pipe';
+import { DateTimeFormatPipePipe } from './helpers/DateTimeFormatPipe.pipe';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -30,6 +33,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      progressBar: true,
+      progressAnimation: 'increasing'
+    }),
+    NgxSpinnerModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
