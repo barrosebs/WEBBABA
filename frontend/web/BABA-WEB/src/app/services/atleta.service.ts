@@ -9,7 +9,7 @@ import { Atleta } from '../models/atleta';
 
 export class AtletaService {
 
-  baseUrl = 'https://localhost:5001/api/atletaS';
+  baseUrl = 'https://localhost:5001/api/atleta';
 
 constructor(private http: HttpClient) { }
 
