@@ -1,8 +1,10 @@
 import { Atleta } from './../models/atleta';
-import { AtletaService } from './../service/atleta.service';
+import { AtletaService } from '../services/atleta.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-atletas',
@@ -11,18 +13,22 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AtletasComponent implements OnInit {
 
-  atletasFiltrados: Atleta[];
-  atletas: Atleta[];
-  modalRef?: BsModalRef;
-  registerForm!: FormGroup;
-  exibirImagem = false;
-  imageLargura = 60;
-  imageMargin = 5;
+  public atletasFiltrados: Atleta[];
+  public atletas: Atleta[];
+  public modalRef?: BsModalRef;
+  public registerForm!: FormGroup;
+  public exibirImagem = false;
+  public imageLargura = 60;
+  public imageMargin = 5;
+
+  message?: string;
 
     constructor
     (
       private atletaService: AtletaService
       , private modalService: BsModalService
+      , private toastrService: ToastrService
+      , private spinner: NgxSpinnerService
     )
     {
       this.atletasFiltrados = [];
@@ -30,39 +36,51 @@ export class AtletasComponent implements OnInit {
 
     }
 
+    public ngOnInit() {
+      this.spinner.show();
+      this.validation();
+      this.getAtletas();
+       /** spinner starts on init */
+
+       setTimeout(() => {
+         /** spinner ends after 5 seconds */
+         this.spinner.hide();
+       }, 4000);
+
+    }
+
+
   _filtroLista = '';
-  get filtroLista(): string{
+  public get filtroLista(): string{
     return this._filtroLista;
   }
-  set filtroLista(value: string){
+  public set filtroLista(value: string){
     this._filtroLista = value;
     this.atletasFiltrados = this.filtroLista ? this.filtrarAtletas(this.filtroLista) : this.atletas;
   }
 
-  openModal(template: TemplateRef<any>){
-    this.modalRef = this.modalService.show(template);
-  }
-  ngOnInit() {
-    this.validation();
-    this.getAtletas()
+  public openModal(template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
-  getAtletas(){
-    this.atletaService.getAllAtleta().subscribe(
-      (_atleta: Atleta[]) => {
+  public getAtletas(): void{
+    this.atletaService.getAllAtleta().subscribe({
+      next: (_atleta: Atleta[]) => {
         this.atletas = _atleta;
-        console.log(this.atletas);
-       }, error => {
-         console.log(error);
-       }
-    );
+        this.atletasFiltrados = this.atletas;
+      }, error: (error: any) => {
+        this.spinner.show();
+        this.toastrService.error('Erro ao tentar carregar os atletas.','ERRO!');
+      },
+         complete: () => this.spinner.show()
+    });
   }
 
-  mostrarImagem(){
+  public mostrarImagem(): void{
    this.exibirImagem = !this.exibirImagem
   }
 
-  validation(){
+  public validation(): void {
     this.registerForm = new FormGroup({
       nome: new FormControl('',[Validators.required, Validators.minLength(4), Validators.maxLength(100)]),
       apelido: new FormControl('',Validators.required),
@@ -78,11 +96,22 @@ export class AtletasComponent implements OnInit {
   salvarAlteracao(){
 
   }
-  filtrarAtletas(filtrarPor: string): Atleta[]{
+  public filtrarAtletas(filtrarPor: string): Atleta[]{
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.atletas.filter(
       atleta => atleta.nome.toLocaleLowerCase()
     )
 
+  }
+
+  public confirm(): void {
+    this.message = 'Confirmed!';
+    this.toastrService.success('O atleta foi deletado com sucesso!','Deletado');
+    this.modalRef?.hide();
+  }
+
+  public decline(): void {
+    this.message = 'Declined!';
+    this.modalRef?.hide();
   }
 }
