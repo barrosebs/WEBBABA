@@ -1,3 +1,5 @@
+import { TituloComponent } from './shared/titulo/titulo.component';
+import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,22 +11,30 @@ import { TooltipModule} from 'ngx-bootstrap/tooltip';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+import { MenuComponent } from './shared/menu/menu.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { MensalidadeComponent } from './components/mensalidade/mensalidade.component';
+import { ControleComponent } from './components/controle/controle.component';
+import { AtletasComponent } from './components/atletas/atletas.component';
+
 import  { AtletaService } from './services/atleta.service';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AtletasComponent } from './atletas/atletas.component';
-import { MenuComponent } from './menu/menu.component';
 
 import { DateTimeFormatPipePipe } from './helpers/DateTimeFormatPipe.pipe';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-      AtletasComponent,
       MenuComponent,
+      PerfilComponent,
+      DashboardComponent,
+      AtletasComponent,
+      ControleComponent,
+      MensalidadeComponent,
+      TituloComponent,
       DateTimeFormatPipePipe
    ],
   imports: [

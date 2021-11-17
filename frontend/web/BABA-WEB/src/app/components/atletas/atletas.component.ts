@@ -1,5 +1,5 @@
-import { Atleta } from './../models/atleta';
-import { AtletaService } from '../services/atleta.service';
+import { Atleta } from '../../models/atleta';
+import { AtletaService } from '../../services/atleta.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -45,7 +45,7 @@ export class AtletasComponent implements OnInit {
        setTimeout(() => {
          /** spinner ends after 5 seconds */
          this.spinner.hide();
-       }, 4000);
+       }, 2000);
 
     }
 
