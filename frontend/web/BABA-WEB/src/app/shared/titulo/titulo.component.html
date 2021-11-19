@@ -1,16 +1,18 @@
-
-<hr>
-<div class="d-flex p-3 my-3 text-white bg-dark rounded shadow-sm">
-  <div class="d-flex align-items-center me-3">
- <i class="{{iconClass}} me-3"></i>
-  <div class="lh-100">
-    <h2 class="mb-0">{{titulo}}</h2>
-    <small>{{subtitulo}}</small>
-  </div>
-  </div>
-  <div class="p-2" *ngIf="botaoListar">
-    <button class="btn btn-success"> Listar {{titulo}} </button>
+<hr />
+<div class="d-flex p-3 my-3 text-white bg-dark rounded shadow-sm position-relative">
+  <div class="d-flex  me-3">
+    <i class="{{ iconClass }} me-3"></i>
+    <div class="lh-100">
+      <h2 class="mb-0">{{ titulo }}</h2>
+      <small>{{ subtitulo }}</small>
+    </div>
 
   </div>
-
+  <div class="">
+    <div class="position-absolute top-0 end-0" *ngIf="botaoListar">
+      <button class="btn btn-success" (click)="listar()"
+      ><b>{{ listar() | json }}</b>
+      >Listar {{ titulo }}</button>
+    </div>
+  </div>
 </div>
