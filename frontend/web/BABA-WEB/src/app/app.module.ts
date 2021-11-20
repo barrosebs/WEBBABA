@@ -26,6 +26,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { DateTimeFormatPipePipe } from './helpers/DateTimeFormatPipe.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       ControleComponent,
       MensalidadeComponent,
       TituloComponent,
-      DateTimeFormatPipePipe
+      DateTimeFormatPipePipe,
+      UserComponent,
+      LoginComponent,
+      RegistrationComponent
    ],
   imports: [
     BrowserAnimationsModule,
