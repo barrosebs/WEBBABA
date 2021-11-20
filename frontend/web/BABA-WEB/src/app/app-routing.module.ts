@@ -12,7 +12,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
-    path: 'atleta', component: AtletasComponent,
+    path: 'atletas', component: AtletasComponent,
     children: [
       { path: 'detalhes/:id', component: AtletaDetalhesComponent },
       { path: 'detalhes', component: AtletaDetalhesComponent },
