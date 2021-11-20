@@ -1,3 +1,5 @@
+import { AtletaListaComponent } from './components/atletas/atletaLista/atletaLista.component';
+import { AtletaDetalhesComponent } from './components/atletas/atletaDetalhes/atletaDetalhes.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
 import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
@@ -32,6 +34,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       PerfilComponent,
       DashboardComponent,
       AtletasComponent,
+      AtletaDetalhesComponent,
+      AtletaListaComponent,
       ControleComponent,
       MensalidadeComponent,
       TituloComponent,
