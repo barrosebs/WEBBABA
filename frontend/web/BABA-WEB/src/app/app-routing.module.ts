@@ -11,6 +11,8 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
+  {path: 'atleta', redirectTo: 'atletas/lista', pathMatch: 'full'},
+  {path: 'atletas', redirectTo: 'atletas/lista', pathMatch: 'full'},
   {
     path: 'atletas', component: AtletasComponent,
     children: [

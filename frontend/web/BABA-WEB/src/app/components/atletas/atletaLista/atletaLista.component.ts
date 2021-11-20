@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -30,6 +31,7 @@ export class AtletaListaComponent implements OnInit {
       , private modalService: BsModalService
       , private toastrService: ToastrService
       , private spinner: NgxSpinnerService
+      , private router: Router
     )
     {
       this.atletasFiltrados = [];
@@ -46,7 +48,7 @@ export class AtletaListaComponent implements OnInit {
        setTimeout(() => {
          /** spinner ends after 5 seconds */
          this.spinner.hide();
-       }, 2000);
+       }, 1000);
 
     }
 
@@ -113,6 +115,10 @@ export class AtletaListaComponent implements OnInit {
   public decline(): void {
     this.message = 'Declined!';
     this.modalRef?.hide();
+  }
+  public openDetalhes(id: number):void{
+    this.router.navigate([`/atletas/detalhes/${id}`]);
+    console.log(this.router);
   }
 
 }
