@@ -73,7 +73,7 @@ export class AtletaListaComponent implements OnInit {
         this.atletasFiltrados = this.atletas;
       }, error: (error: any) => {
         this.spinner.show();
-        this.toastrService.error('Erro ao tentar carregar os atletas.','ERRO!');
+        this.toastrService.error('Xiii deu ruim!!! Chama o pessoal de TI! Erro ao tentar carregar os atletas.','ERRO!');
       },
          complete: () => this.spinner.show()
     });
