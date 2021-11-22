@@ -1,3 +1,188 @@
-<p>
-  atletaDetalhes works!
-</p>
+<div class="card rounded shadow-sm p-3">
+  <form [formGroup]="registerForm">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label></label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('imageUrl')?.errors &&
+              registerForm.get('imageUrl')?.touched
+          }"
+          formControlName="imageUrl"
+        />
+        <div class="invalid-feedback">O campo IMAGEM é obrigatório!</div>
+      </div>
+      <div class="form-group col-md-8">
+        <label>Nome</label>
+        <input
+          type="text"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('nome')?.errors &&
+              registerForm.get('nome')?.touched
+          }"
+          formControlName="nome"
+          placeholder="Nome do Atleta"
+        />
+        <div
+          *ngIf="
+            registerForm.get('nome')?.hasError('required') &&
+            registerForm.get('nome')?.touched
+          "
+          class="invalid-feedback"
+        >
+          O campo NOME é obrigatório!
+        </div>
+        <div
+          *ngIf="
+            registerForm.get('nome')?.hasError('minlength') &&
+            registerForm.get('nome')?.touched
+          "
+          class="invalid-feedback"
+        >
+          O campo NOME deve conter o mínimo de 4 caracteres!
+        </div>
+        <div
+          *ngIf="
+            registerForm.get('nome')?.hasError('maxlength') &&
+            registerForm.get('nome')?.touched
+          "
+          class="invalid-feedback"
+        >
+          O campo NOME deve conter o máximo de 100 caracteres!
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <label>Apelido</label>
+        <input
+          type="text"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('apelido')?.errors &&
+              registerForm.get('apelido')?.touched
+          }"
+          formControlName="apelido"
+          placeholder="Apelido do Atleta"
+        />
+        <div class="invalid-feedback">O campo APELIDO é obrigatório!</div>
+      </div>
+      <div class="form-group col-md-4">
+        <label>Número do Colete</label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('camisa')?.errors &&
+              registerForm.get('camisa')?.touched
+          }"
+          formControlName="camisa"
+          placeholder="Número do Colete"
+        />
+        <div class="invalid-feedback">
+          O campo NUMERO DO COLETE é obrigatório!
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label>Posição do Atleta</label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('posicao')?.errors &&
+              registerForm.get('posicao')?.touched
+          }"
+          formControlName="posicao"
+          placeholder="Posição de Jogo do Atleta"
+        />
+        <div class="invalid-feedback">
+          O campo POSIÇÃO DO ATLETA é obrigatório!
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Comissão?</label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('comissao')?.errors &&
+              registerForm.get('comissao')?.touched
+          }"
+          formControlName="comissao"
+          placeholder="O atleta pertence a comissão?"
+        />
+        <div class="invalid-feedback">O campo COMISSÃO é obrigatório!</div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label>Telefone</label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('whatsApp')?.errors &&
+              registerForm.get('whatsApp')?.touched
+          }"
+          formControlName="whatsApp"
+          placeholder="informe o número de telefone válido?"
+        />
+        <div class="invalid-feedback">O campo TELEFONE é obrigatório!</div>
+      </div>
+      <div class="form-group col-md-8">
+        <label>Data de Nascimento</label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('dataNascimento')?.errors &&
+              registerForm.get('dataNascimento')?.touched
+          }"
+          formControlName="dataNascimento"
+          placeholder="informe a data de nascimento"
+        />
+        <div class="invalid-feedback">
+          O campo DATA DE NASCIMENTO é obrigatório!
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+<br />
+<button class="btn btn-secondary" (click)="openModal(template)">Fechar</button>
+<button class="btn btn-primary" (click)="salvarAlteracao()">
+  Salvar Alterações
+</button>
+<br />
+<br />
+
+
+<!--MODAL-->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef?.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">This is a modal.</div>
+</ng-template>
