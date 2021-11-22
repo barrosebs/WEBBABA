@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -13,6 +13,7 @@ export class AtletaDetalhesComponent implements OnInit {
   public modalRef?: BsModalRef;
   constructor(
     private modalService: BsModalService
+    , private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -20,15 +21,15 @@ export class AtletaDetalhesComponent implements OnInit {
   }
 
   public validation(): void {
-    this.registerForm = new FormGroup({
-      nome: new FormControl('',[Validators.required, Validators.minLength(4), Validators.maxLength(100)]),
-      apelido: new FormControl('',Validators.required),
-      camisa: new FormControl('',Validators.required),
-      posicao: new FormControl('',Validators.required),
-      dataNascimento: new FormControl('',Validators.required),
-      whatsApp: new FormControl('',Validators.required),
-      comissao: new FormControl('',Validators.required),
-      imageUrl: new FormControl('',Validators.required),
+    this.registerForm = this.fb.group({
+      nome:   ['',[Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
+      apelido:  ['',Validators.required],
+      camisa:   ['',Validators.required],
+      posicao:  ['',Validators.required],
+      dataNascimento:   ['',Validators.required],
+      whatsApp:   ['',Validators.required],
+      comissao:   ['',Validators.required],
+      imageUrl:   ['',Validators.required],
     })
   }
 
