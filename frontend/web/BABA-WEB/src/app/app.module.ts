@@ -15,7 +15,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { MenuComponent } from './shared/menu/menu.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+import { PerfilComponent } from './components/user/perfil/perfil.component';
 import { MensalidadeComponent } from './components/mensalidade/mensalidade.component';
 import { ControleComponent } from './components/controle/controle.component';
 import { AtletasComponent } from './components/atletas/atletas.component';
