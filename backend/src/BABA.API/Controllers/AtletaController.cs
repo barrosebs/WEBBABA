@@ -1,8 +1,10 @@
-﻿using BABA.Application.Interface;
+﻿using BABA.API.Dto;
+using BABA.Application.Interface;
 using BABA.Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,9 +28,28 @@ namespace BABA.API.Controllers
         {
             try
             {
+
                 var atletas = await _atletaService.GetAllAtletaAsync(false);
                 if (atletas == null) return NotFound("Nenhum atleta encontrado!");
-                return Ok(atletas);
+                
+                var atletasRetorno = new List<AtletaDto>();
+
+                foreach(var atleta in atletas)
+                {
+                    atletasRetorno.Add(new AtletaDto(){
+                        AtletaId = atleta.AtletaId,
+                        Nome = atleta.Nome,
+                        Apelido = atleta.Apelido,
+                        Camisa = atleta.Camisa,
+                        Posicao = atleta.Posicao,
+                        Comissao = atleta.Comissao,
+                        WhatsApp = atleta.WhatsApp,
+                        DataNascimento = atleta.DataNascimento,
+                    });
+                }
+
+
+                return Ok(atletasRetorno);
             }
             catch (Exception ex)
             {
