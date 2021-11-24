@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-atletaDetalhes',
@@ -7,9 +9,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AtletaDetalhesComponent implements OnInit {
 
-  constructor() { }
+  public registerForm!: FormGroup;
+  public modalRef?: BsModalRef;
 
-  ngOnInit() {
+  constructor(
+    private modalService: BsModalService
+    , private fb: FormBuilder
+  ) { }
+
+  ngOnInit(): void {
+    this.validation();
+  }
+
+  get f():any{
+    return this.registerForm.controls;
+  }
+  public validation(): void {
+    this.registerForm = this.fb.group({
+      nome:   ['',[Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
+      apelido:  ['',Validators.required],
+      camisa:   ['',Validators.required],
+      posicao:  ['',Validators.required],
+      dataNascimento:   ['',Validators.required],
+      whatsApp:   ['',Validators.required],
+      comissao:   ['',Validators.required],
+      imageUrl:   ['',Validators.required],
+    })
+  }
+
+  public openModal(template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  public salvarAlteracao(): void{
+
+  }
+
+  public resertForm(): void{
+    this.registerForm.reset();
   }
 
 }

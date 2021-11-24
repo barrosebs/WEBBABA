@@ -1,9 +1,9 @@
 
-<nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #e3f2fd;" *ngIf="showMenu()">
   <div class="container">
 
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">BABA-Web</a>
+      <a class="navbar-brand" href="#"><i class="far fa-futbol"></i></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,11 +29,11 @@
               Vinícius
             </a>
             <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" routerLink="perfil">
+              <a class="dropdown-item" routerLink="user/perfil">
                 Perfil
               </a>
               <div role="separator" class="divider"></div>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" routerLink="user/login">
                 Sair
               </a>
             </div>
