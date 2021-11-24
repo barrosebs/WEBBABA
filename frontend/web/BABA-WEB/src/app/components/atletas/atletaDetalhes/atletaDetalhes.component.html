@@ -1,15 +1,15 @@
 <div class="card rounded shadow-sm p-3">
   <form [formGroup]="registerForm">
+    <p>form valor: {{ registerForm.value | json }}</p>
+    <p>form status: {{ registerForm.status | json }}</p>
     <div class="form-row">
       <div class="form-group col-md-4">
-        <label></label>
+        <label>Imagem</label>
         <input
           type="text"
           class="form-control is-invalid"
           [ngClass]="{
-            'is-invalid':
-              registerForm.get('imageUrl')?.errors &&
-              registerForm.get('imageUrl')?.touched
+            'is-invalid': f.imageUrl?.errors && f.imageUrl?.touched
           }"
           formControlName="imageUrl"
         />
@@ -21,36 +21,25 @@
           type="text"
           class="form-control"
           [ngClass]="{
-            'is-invalid':
-              registerForm.get('nome')?.errors &&
-              registerForm.get('nome')?.touched
+            'is-invalid': f.nome?.errors && f.nome?.touched
           }"
           formControlName="nome"
           placeholder="Nome do Atleta"
         />
         <div
-          *ngIf="
-            registerForm.get('nome')?.hasError('required') &&
-            registerForm.get('nome')?.touched
-          "
+          *ngIf="f.nome?.hasError('required') && f.nome?.touched"
           class="invalid-feedback"
         >
           O campo NOME é obrigatório!
         </div>
         <div
-          *ngIf="
-            registerForm.get('nome')?.hasError('minlength') &&
-            registerForm.get('nome')?.touched
-          "
+          *ngIf="f.nome?.hasError('minlength') && f.nome?.touched"
           class="invalid-feedback"
         >
           O campo NOME deve conter o mínimo de 4 caracteres!
         </div>
         <div
-          *ngIf="
-            registerForm.get('nome')?.hasError('maxlength') &&
-            registerForm.get('nome')?.touched
-          "
+          *ngIf="f.nome?.hasError('maxlength') && f.nome?.touched"
           class="invalid-feedback"
         >
           O campo NOME deve conter o máximo de 100 caracteres!
@@ -64,9 +53,7 @@
           type="text"
           class="form-control"
           [ngClass]="{
-            'is-invalid':
-              registerForm.get('apelido')?.errors &&
-              registerForm.get('apelido')?.touched
+            'is-invalid': f.apelido?.errors && f.apelido?.touched
           }"
           formControlName="apelido"
           placeholder="Apelido do Atleta"
@@ -79,9 +66,7 @@
           type="text"
           class="form-control is-invalid"
           [ngClass]="{
-            'is-invalid':
-              registerForm.get('camisa')?.errors &&
-              registerForm.get('camisa')?.touched
+            'is-invalid': f.camisa?.errors && f.camisa?.touched
           }"
           formControlName="camisa"
           placeholder="Número do Colete"
@@ -98,9 +83,7 @@
           type="text"
           class="form-control is-invalid"
           [ngClass]="{
-            'is-invalid':
-              registerForm.get('posicao')?.errors &&
-              registerForm.get('posicao')?.touched
+            'is-invalid': f.posicao?.errors && f.posicao?.touched
           }"
           formControlName="posicao"
           placeholder="Posição de Jogo do Atleta"
@@ -115,9 +98,7 @@
           type="text"
           class="form-control is-invalid"
           [ngClass]="{
-            'is-invalid':
-              registerForm.get('comissao')?.errors &&
-              registerForm.get('comissao')?.touched
+            'is-invalid': f.comissao?.errors && f.comissao?.touched
           }"
           formControlName="comissao"
           placeholder="O atleta pertence a comissão?"
@@ -132,9 +113,7 @@
           type="text"
           class="form-control is-invalid"
           [ngClass]="{
-            'is-invalid':
-              registerForm.get('whatsApp')?.errors &&
-              registerForm.get('whatsApp')?.touched
+            'is-invalid': f.whatsApp?.errors && f.whatsApp?.touched
           }"
           formControlName="whatsApp"
           placeholder="informe o número de telefone válido?"
@@ -147,9 +126,7 @@
           type="text"
           class="form-control is-invalid"
           [ngClass]="{
-            'is-invalid':
-              registerForm.get('dataNascimento')?.errors &&
-              registerForm.get('dataNascimento')?.touched
+            'is-invalid': f.dataNascimento?.errors && f.dataNascimento?.touched
           }"
           formControlName="dataNascimento"
           placeholder="informe a data de nascimento"
@@ -159,17 +136,21 @@
         </div>
       </div>
     </div>
+    <div class="card-footer">
+      <button class="btn btn-secondary" (click)="resertForm()">
+        Limpar Formulário
+      </button>
+      <button
+        class="btn btn-primary"
+        (click)="salvarAlteracao()"
+        [disabled]="!registerForm.valid"
+      >
+        Salvar Alterações
+      </button>
+    </div>
   </form>
-
 </div>
 <br />
-<button class="btn btn-secondary" (click)="openModal(template)">Fechar</button>
-<button class="btn btn-primary" (click)="salvarAlteracao()">
-  Salvar Alterações
-</button>
-<br />
-<br />
-
 
 <!--MODAL-->
 <ng-template #template>
