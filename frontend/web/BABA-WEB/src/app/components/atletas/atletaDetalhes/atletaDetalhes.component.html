@@ -1,3 +1,169 @@
-<p>
-  atletaDetalhes works!
-</p>
+<div class="card rounded shadow-sm p-3">
+  <form [formGroup]="registerForm">
+    <p>form valor: {{ registerForm.value | json }}</p>
+    <p>form status: {{ registerForm.status | json }}</p>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label>Imagem</label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid': f.imageUrl?.errors && f.imageUrl?.touched
+          }"
+          formControlName="imageUrl"
+        />
+        <div class="invalid-feedback">O campo IMAGEM é obrigatório!</div>
+      </div>
+      <div class="form-group col-md-8">
+        <label>Nome</label>
+        <input
+          type="text"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': f.nome?.errors && f.nome?.touched
+          }"
+          formControlName="nome"
+          placeholder="Nome do Atleta"
+        />
+        <div
+          *ngIf="f.nome?.hasError('required') && f.nome?.touched"
+          class="invalid-feedback"
+        >
+          O campo NOME é obrigatório!
+        </div>
+        <div
+          *ngIf="f.nome?.hasError('minlength') && f.nome?.touched"
+          class="invalid-feedback"
+        >
+          O campo NOME deve conter o mínimo de 4 caracteres!
+        </div>
+        <div
+          *ngIf="f.nome?.hasError('maxlength') && f.nome?.touched"
+          class="invalid-feedback"
+        >
+          O campo NOME deve conter o máximo de 100 caracteres!
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <label>Apelido</label>
+        <input
+          type="text"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': f.apelido?.errors && f.apelido?.touched
+          }"
+          formControlName="apelido"
+          placeholder="Apelido do Atleta"
+        />
+        <div class="invalid-feedback">O campo APELIDO é obrigatório!</div>
+      </div>
+      <div class="form-group col-md-4">
+        <label>Número do Colete</label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid': f.camisa?.errors && f.camisa?.touched
+          }"
+          formControlName="camisa"
+          placeholder="Número do Colete"
+        />
+        <div class="invalid-feedback">
+          O campo NUMERO DO COLETE é obrigatório!
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label>Posição do Atleta</label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid': f.posicao?.errors && f.posicao?.touched
+          }"
+          formControlName="posicao"
+          placeholder="Posição de Jogo do Atleta"
+        />
+        <div class="invalid-feedback">
+          O campo POSIÇÃO DO ATLETA é obrigatório!
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Comissão?</label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid': f.comissao?.errors && f.comissao?.touched
+          }"
+          formControlName="comissao"
+          placeholder="O atleta pertence a comissão?"
+        />
+        <div class="invalid-feedback">O campo COMISSÃO é obrigatório!</div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label>Telefone</label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid': f.whatsApp?.errors && f.whatsApp?.touched
+          }"
+          formControlName="whatsApp"
+          placeholder="informe o número de telefone válido?"
+        />
+        <div class="invalid-feedback">O campo TELEFONE é obrigatório!</div>
+      </div>
+      <div class="form-group col-md-8">
+        <label>Data de Nascimento</label>
+        <input
+          type="text"
+          class="form-control is-invalid"
+          [ngClass]="{
+            'is-invalid': f.dataNascimento?.errors && f.dataNascimento?.touched
+          }"
+          formControlName="dataNascimento"
+          placeholder="informe a data de nascimento"
+        />
+        <div class="invalid-feedback">
+          O campo DATA DE NASCIMENTO é obrigatório!
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-secondary" (click)="resertForm()">
+        Limpar Formulário
+      </button>
+      <button
+        class="btn btn-primary"
+        (click)="salvarAlteracao()"
+        [disabled]="!registerForm.valid"
+      >
+        Salvar Alterações
+      </button>
+    </div>
+  </form>
+</div>
+<br />
+
+<!--MODAL-->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef?.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">This is a modal.</div>
+</ng-template>

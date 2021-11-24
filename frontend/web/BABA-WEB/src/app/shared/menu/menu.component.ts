@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
+showMenu(): boolean{
+  return this.route.url !== '/user/login';
+}
 
 }
