@@ -16,7 +16,9 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.validation();
   }
+  ngAfterContentInit(){
 
+  }
   private validation(): void {
     const formOptions: AbstractControlOptions = {
       validators: ValidatorField.MustMatch('senha', 'confirmeSenha')
@@ -29,7 +31,7 @@ export class RegistrationComponent implements OnInit {
       senha:['', [Validators.required, Validators.minLength(6)] ],
       confirmeSenha:['', Validators.required ],
     }, formOptions)
-    console.log(formOptions);
+
   }
   get f():any{
     return this.form.controls;

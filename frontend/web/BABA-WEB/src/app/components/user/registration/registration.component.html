@@ -63,13 +63,13 @@
             placeholder="email do Atleta"
           />
           <div
-            *ngIf="f.email?.hasError('required') && f.email?.touched"
+            *ngIf="f.email?.errors('required') && f.email?.touched"
             class="invalid-feedback"
           >
             O campo email é obrigatório!
           </div>
           <div
-            *ngIf="f.email?.hasError('email') && f.email?.touched"
+            *ngIf="f.email?.errors('email') && f.email?.touched"
             class="invalid-feedback"
           >
             Você precisa informar um email válido!
@@ -95,13 +95,13 @@
             placeholder="senha do Atleta"
           />
           <div
-            *ngIf="f.senha?.hasError('required') && f.senha?.touched"
+            *ngIf="f.senha?.errors('required') && f.senha?.touched"
             class="invalid-feedback"
           >
             O campo senha é obrigatório!
           </div>
           <div
-            *ngIf="f.senha?.hasError('minlength') && f.senha?.touched"
+            *ngIf="f.senha?.errors('minlength') && f.senha?.touched"
             class="invalid-feedback"
           >
             O mínimo de 6 caracter para uma senha válida!
