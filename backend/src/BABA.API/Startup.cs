@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
+using System;
 
 namespace BABA.API
 {
@@ -29,6 +31,8 @@ namespace BABA.API
             services.AddDbContext<DBBabaContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IAtletaService, AtletaService>();
             services.AddScoped<IAllPerssit, AllPersist>();
