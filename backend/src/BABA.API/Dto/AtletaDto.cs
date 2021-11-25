@@ -14,7 +14,6 @@ namespace BABA.API.Dto
         public string WhatsApp { get; set; }
         public DateTime DataNascimento { get; set; }
         public virtual string imageUrl { get; set; }
-        public DateTime DataCadastro { get; set; }
-       // public List<Mensalidade> Mensalidades { get; set; }
+        // public List<Mensalidade> Mensalidades { get; set; }
     }
 }
