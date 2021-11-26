@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BABA.API.Dto
+namespace BABA.Application.Dto
 {
     public class AtletaDto
     {

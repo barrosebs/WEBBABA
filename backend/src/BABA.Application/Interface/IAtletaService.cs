@@ -1,20 +1,16 @@
-﻿using BABA.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using BABA.Application.Dto;
 using System.Threading.Tasks;
 
 namespace BABA.Application.Interface
 {
     public interface IAtletaService
     {
-        Task<Atleta> AddAtleta(Atleta model);
-        Task<Atleta> UpdateAtleta(int atletaId, Atleta model);
+        Task<AtletaDto> AddAtleta(AtletaDto model);
+        Task<AtletaDto> UpdateAtleta(int atletaId, AtletaDto model);
         Task<bool> DeleteAtleta(int atletaId);
 
-        Task<Atleta[]> GetAllAtletaByMensalidadeAsync(string condutor, bool includeMensalidade = false);
-        Task<Atleta[]> GetAllAtletaAsync(bool includeAtleta = false);
-        Task<Atleta> GetAtletaByIdAsync(int atletaId, bool includeMensalidade = false);
+        Task<AtletaDto[]> GetAllAtletaByMensalidadeAsync(string condutor, bool includeMensalidade = false);
+        Task<AtletaDto[]> GetAllAtletaAsync(bool includeAtleta = false);
+        Task<AtletaDto> GetAtletaByIdAsync(int atletaId, bool includeMensalidade = false);
     }
 }

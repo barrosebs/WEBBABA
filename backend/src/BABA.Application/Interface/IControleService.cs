@@ -1,4 +1,5 @@
-﻿using BABA.Domain.Models;
+﻿using BABA.Application.Dto;
+using BABA.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace BABA.Application.Interface
 {
     public interface IControleService
     {
-        Task<Controle> AddControle(Controle model);
-        Task<Controle> UpdateControle(int controleId, Controle model);
+        Task<ControleDto> AddControle(ControleDto model);
+        Task<ControleDto> UpdateControle(int controleId, ControleDto model);
         Task<bool> DeleteControle(int controleId);
 
-        Task<Controle[]> GetAllControleByAtletaAsync(string condutor, bool includeAtleta = false);
-        Task<Controle[]> GetAllControleAsync(bool includeAtleta = false);
-        Task<Controle> GetControleByIdAsync(int controleId, bool includeAtleta = false);
+        Task<ControleDto[]> GetAllControleByAtletaAsync(string condutor, bool includeAtleta = false);
+        Task<ControleDto[]> GetAllControleAsync(bool includeAtleta = false);
+        Task<ControleDto> GetControleByIdAsync(int controleId, bool includeAtleta = false);
     }
 }

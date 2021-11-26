@@ -1,10 +1,9 @@
-﻿using BABA.API.Dto;
-using BABA.Application.Interface;
+﻿using BABA.Application.Dto;
+using BABA.Application.Services;
 using BABA.Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,9 +14,9 @@ namespace BABA.API.Controllers
     [ApiController]
     public class AtletaController : ControllerBase
     {
-        private readonly IAtletaService _atletaService;
+        private readonly AtletaService _atletaService;
 
-        public AtletaController(IAtletaService atletaService)
+        public AtletaController(AtletaService atletaService)
         {
             _atletaService = atletaService;
         }
@@ -31,25 +30,11 @@ namespace BABA.API.Controllers
 
                 var atletas = await _atletaService.GetAllAtletaAsync(false);
                 if (atletas == null) return NotFound("Nenhum atleta encontrado!");
-                
-                var atletasRetorno = new List<AtletaDto>();
-
-                foreach(var atleta in atletas)
-                {
-                    atletasRetorno.Add(new AtletaDto(){
-                        AtletaId = atleta.AtletaId,
-                        Nome = atleta.Nome,
-                        Apelido = atleta.Apelido,
-                        Camisa = atleta.Camisa,
-                        Posicao = atleta.Posicao,
-                        Comissao = atleta.Comissao,
-                        WhatsApp = atleta.WhatsApp,
-                        DataNascimento = atleta.DataNascimento,
-                    });
-                }
 
 
-                return Ok(atletasRetorno);
+
+
+                return Ok(atletas);
             }
             catch (Exception ex)
             {
@@ -81,7 +66,7 @@ namespace BABA.API.Controllers
         //}
         // POST api/<AtletaController>
         [HttpPost]
-        public async Task<IActionResult> Post(Atleta model)
+        public async Task<IActionResult> Post(AtletaDto model)
         {
             try
             {
@@ -97,7 +82,7 @@ namespace BABA.API.Controllers
 
         // PUT api/<AtletaController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Atleta model)
+        public async Task<IActionResult> Put(int id, AtletaDto model)
         {
             try
             {

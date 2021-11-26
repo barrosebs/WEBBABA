@@ -1,8 +1,8 @@
 using AutoMapper;
-using BABA.API.Dto;
+using BABA.Application.Dto;
 using BABA.Domain.Models;
 
-namespace BABA.API.Helpers
+namespace BABA.Application.Helpers
 {
     public class BabaProfile : Profile
     {

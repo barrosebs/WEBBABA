@@ -1,4 +1,6 @@
-﻿using BABA.Application.Interface;
+﻿using AutoMapper;
+using BABA.Application.Dto;
+using BABA.Application.Interface;
 using BABA.Domain.Models;
 using BABA.Persistence.Interface;
 using System;
@@ -10,18 +12,20 @@ namespace BABA.Application.Services
     {
         private readonly IAllPerssit _allPersist;
         private readonly IAtletaPersist _atletaPersist;
+        private readonly IMapper _mapper;
 
-        public AtletaService(IAllPerssit allPersist, IAtletaPersist atletaPersist)
+        public AtletaService(IAllPerssit allPersist, IAtletaPersist atletaPersist, IMapper mapper)
         {
             _allPersist = allPersist;
             _atletaPersist = atletaPersist;
+            _mapper = mapper;
         }
 
-        public async Task<Atleta> AddAtleta(Atleta model)
+        public async Task<AtletaDto> AddAtleta(AtletaDto model)
         {
             try
             {
-                _allPersist.Add<Atleta>(model);
+                _allPersist.Add<AtletaDto>(model);
                 if (await _allPersist.SaveChangesAsync())
                 {
                     return await _atletaPersist.GetAtletaByIdAsync(model.AtletaId, false);
@@ -33,7 +37,7 @@ namespace BABA.Application.Services
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<Atleta> UpdateAtleta(int atletaId, Atleta model)
+        public async Task<AtletaDto> UpdateAtleta(int atletaId, AtletaDto model)
         {
             try
             {
@@ -71,7 +75,7 @@ namespace BABA.Application.Services
             }
         }
 
-        public async Task<Atleta[]> GetAllAtletaAsync(bool includeMensalidade = false)
+        public async Task<AtletaDto[]> GetAllAtletaAsync(bool includeMensalidade = false)
         {
             try
             {
@@ -86,7 +90,7 @@ namespace BABA.Application.Services
             }
         }
 
-        public async Task<Atleta[]> GetAllAtletaByMensalidadeAsync(string atletaNome, bool includeMensalidade = false)
+        public async Task<AtletaDto[]> GetAllAtletaByMensalidadeAsync(string atletaNome, bool includeMensalidade = false)
         {
             try
             {
@@ -101,7 +105,7 @@ namespace BABA.Application.Services
             }
         }
 
-        public async Task<Atleta> GetAtletaByIdAsync(int atletaId, bool includeMensalidade = false)
+        public async Task<AtletaDto> GetAtletaByIdAsync(int atletaId, bool includeMensalidade = false)
         {
             try
             {
