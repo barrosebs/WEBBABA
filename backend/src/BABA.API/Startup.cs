@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace BABA.API
 {
@@ -27,7 +28,6 @@ namespace BABA.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
             services.AddDbContext<DBBabaContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
@@ -37,7 +37,9 @@ namespace BABA.API
             services.AddScoped<IAtletaService, AtletaService>();
             services.AddScoped<IAllPerssit, AllPersist>();
             services.AddScoped<IAtletaPersist, AtletaPersist>();
-            
+
+            services.AddCors();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BABA.API", Version = "v1" });
