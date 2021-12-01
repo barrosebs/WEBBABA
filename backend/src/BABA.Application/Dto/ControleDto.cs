@@ -12,8 +12,8 @@ namespace BABA.Application.Dto
         public bool ehAtleta { get; set; }
         public int CategoriaId { get; set; }
         public int Status { get; set; }
-        // public Categoria Categoria { get; set; }
+        public CategoriaDto Categoria { get; set; }
         public int MensalidadeId { get; set; }
-        // public Mensalidade Mensalidade { get; set; }
+        public MensalidadeDto Mensalidade { get; set; }
     }
 }

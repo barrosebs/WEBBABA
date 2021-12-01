@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+
 namespace BABA.Application.Dto
 {
-    public class Mensalidade
+    public class MensalidadeDto
     {
         public int MensalidadeId { get; set; }
         public string Vencimento { get; set; }
@@ -12,7 +14,7 @@ namespace BABA.Application.Dto
         public string DataPagamento { get; set; }
         public bool EhQuitada { get; set; }
         public int AtletaId { get; set; }
-        //public Atleta Atleta { get; set; }
-        //public List<Controle> Controles { get; set; }
+        public AtletaDto Atleta { get; set; }
+        public List<ControleDto> Controles { get; set; }
     }
 }

@@ -14,6 +14,6 @@ namespace BABA.Application.Dto
         public string WhatsApp { get; set; }
         public DateTime DataNascimento { get; set; }
         public virtual string imageUrl { get; set; }
-        // public List<Mensalidade> Mensalidades { get; set; }
+        public List<MensalidadeDto> Mensalidades { get; set; }
     }
 }
