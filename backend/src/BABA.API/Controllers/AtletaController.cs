@@ -1,4 +1,5 @@
 ﻿using BABA.Application.Dto;
+using BABA.Application.Interface;
 using BABA.Application.Services;
 using BABA.Domain.Models;
 using Microsoft.AspNetCore.Http;
@@ -14,9 +15,9 @@ namespace BABA.API.Controllers
     [ApiController]
     public class AtletaController : ControllerBase
     {
-        private readonly AtletaService _atletaService;
+        private readonly IAtletaService _atletaService;
 
-        public AtletaController(AtletaService atletaService)
+        public AtletaController(IAtletaService atletaService)
         {
             _atletaService = atletaService;
         }

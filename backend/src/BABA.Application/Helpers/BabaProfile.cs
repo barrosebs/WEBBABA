@@ -8,7 +8,7 @@ namespace BABA.Application.Helpers
     {
         public BabaProfile()
         {
-            CreateMap<Atleta, AtletaDto>();
+            CreateMap<Atleta, AtletaDto>().ReverseMap();
         }
     }
 }

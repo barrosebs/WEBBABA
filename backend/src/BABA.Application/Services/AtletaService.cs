@@ -25,10 +25,12 @@ namespace BABA.Application.Services
         {
             try
             {
-                _allPersist.Add<AtletaDto>(model);
+                var atleta = _mapper.Map<Atleta>(model);
+                _allPersist.Add<Atleta>(atleta);
                 if (await _allPersist.SaveChangesAsync())
                 {
-                    return await _atletaPersist.GetAtletaByIdAsync(model.AtletaId, false);
+                    var retorno = await _atletaPersist.GetAtletaByIdAsync(atleta.AtletaId, false);
+                    return _mapper.Map<AtletaDto>(retorno);
                 }
                 return null;
             }
@@ -42,17 +44,23 @@ namespace BABA.Application.Services
             try
             {
                 var atleta = await _atletaPersist.GetAtletaByIdAsync(atletaId, false);
+
                 if (atleta == null) return null;
 
                 model.AtletaId = atletaId;
 
-                _allPersist.Update(model);
+                _mapper.Map(model, atleta);
+
+                _allPersist.Update<Atleta>(atleta);
+
                 if (await _allPersist.SaveChangesAsync())
                 {
-                    return await _atletaPersist.GetAtletaByIdAsync(model.AtletaId, false);
+                    var retorno = await _atletaPersist.GetAtletaByIdAsync(atleta.AtletaId, false);
+                    return _mapper.Map<AtletaDto>(retorno);
                 }
                 return null;
             }
+
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
@@ -79,10 +87,11 @@ namespace BABA.Application.Services
         {
             try
             {
-                var condutor = await _atletaPersist.GetAllAtletaAsync(includeMensalidade);
-                if (condutor == null) return null;
+                var atletas = await _atletaPersist.GetAllAtletaAsync(includeMensalidade);
+                if (atletas == null) return null;
+                var result = _mapper.Map<AtletaDto[]>(atletas);
 
-                return condutor;
+                return result;
             }
             catch (Exception ex)
             {
@@ -96,8 +105,9 @@ namespace BABA.Application.Services
             {
                 var atletas = await _atletaPersist.GetAllAtletaByMensalidadeAsync(atletaNome, includeMensalidade);
                 if (atletas == null) return null;
+                var result = _mapper.Map<AtletaDto[]>(atletas);
 
-                return atletas;
+                return result;
             }
             catch (Exception ex)
             {
@@ -111,8 +121,9 @@ namespace BABA.Application.Services
             {
                 var atleta = await _atletaPersist.GetAtletaByIdAsync(atletaId, includeMensalidade);
                 if (atleta == null) return null;
+                var result = _mapper.Map<AtletaDto>(atleta);
 
-                return atleta;
+                return result;
             }
             catch (Exception ex)
             {
