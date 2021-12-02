@@ -30,7 +30,7 @@ namespace BABA.API.Controllers
             {
 
                 var atletas = await _atletaService.GetAllAtletaAsync(false);
-                if (atletas == null) return NotFound("Nenhum atleta encontrado!");
+                if (atletas == null) return NoContent();
 
 
 
@@ -50,7 +50,7 @@ namespace BABA.API.Controllers
             try
             {
                 var atleta = await _atletaService.GetAllAtletaByMensalidadeAsync(mensalidade, false);
-                if (atleta == null) return NotFound("atleta não encontrado!");
+                if (atleta == null) return NoContent();
                 return Ok(atleta);
             }
             catch (Exception ex)
@@ -72,7 +72,7 @@ namespace BABA.API.Controllers
             try
             {
                 var atleta = await _atletaService.AddAtleta(model);
-                if (atleta == null) return BadRequest("Erro ao tentar adicionar Atleta");
+                if (atleta == null) return NoContent();
                 return Ok(atleta);
             }
             catch (Exception ex)
@@ -88,7 +88,7 @@ namespace BABA.API.Controllers
             try
             {
                 var atleta = await _atletaService.UpdateAtleta(id, model);
-                if (atleta == null) return BadRequest("Erro ao tentar alterar Atleta");
+                if (atleta == null) return NoContent();
                 return Ok(atleta);
             }
             catch (Exception ex)
@@ -103,10 +103,7 @@ namespace BABA.API.Controllers
         {
             try
             {
-                if (await _atletaService.DeleteAtleta(id))
-                    return Ok("Deletado com sucesso!");
-                else
-                    return BadRequest("Atleta não deletado!");
+                return await _atletaService.DeleteAtleta(id) ? Ok("Deletado com sucesso!") : BadRequest("Atleta não deletado!");
             }
             catch (Exception ex)
             {
