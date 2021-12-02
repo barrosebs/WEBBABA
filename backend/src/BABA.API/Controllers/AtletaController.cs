@@ -1,4 +1,6 @@
-﻿using BABA.Application.Interface;
+﻿using BABA.Application.Dto;
+using BABA.Application.Interface;
+using BABA.Application.Services;
 using BABA.Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +28,13 @@ namespace BABA.API.Controllers
         {
             try
             {
+
                 var atletas = await _atletaService.GetAllAtletaAsync(false);
-                if (atletas == null) return NotFound("Nenhum atleta encontrado!");
+                if (atletas == null) return NoContent();
+
+
+
+
                 return Ok(atletas);
             }
             catch (Exception ex)
@@ -43,7 +50,7 @@ namespace BABA.API.Controllers
             try
             {
                 var atleta = await _atletaService.GetAllAtletaByMensalidadeAsync(mensalidade, false);
-                if (atleta == null) return NotFound("atleta não encontrado!");
+                if (atleta == null) return NoContent();
                 return Ok(atleta);
             }
             catch (Exception ex)
@@ -60,12 +67,12 @@ namespace BABA.API.Controllers
         //}
         // POST api/<AtletaController>
         [HttpPost]
-        public async Task<IActionResult> Post(Atleta model)
+        public async Task<IActionResult> Post(AtletaDto model)
         {
             try
             {
                 var atleta = await _atletaService.AddAtleta(model);
-                if (atleta == null) return BadRequest("Erro ao tentar adicionar Atleta");
+                if (atleta == null) return NoContent();
                 return Ok(atleta);
             }
             catch (Exception ex)
@@ -76,12 +83,12 @@ namespace BABA.API.Controllers
 
         // PUT api/<AtletaController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Atleta model)
+        public async Task<IActionResult> Put(int id, AtletaDto model)
         {
             try
             {
                 var atleta = await _atletaService.UpdateAtleta(id, model);
-                if (atleta == null) return BadRequest("Erro ao tentar alterar Atleta");
+                if (atleta == null) return NoContent();
                 return Ok(atleta);
             }
             catch (Exception ex)
@@ -96,10 +103,7 @@ namespace BABA.API.Controllers
         {
             try
             {
-                if (await _atletaService.DeleteAtleta(id))
-                    return Ok("Deletado com sucesso!");
-                else
-                    return BadRequest("Atleta não deletado!");
+                return await _atletaService.DeleteAtleta(id) ? Ok("Deletado com sucesso!") : BadRequest("Atleta não deletado!");
             }
             catch (Exception ex)
             {

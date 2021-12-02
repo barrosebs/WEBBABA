@@ -1,4 +1,6 @@
-﻿using BABA.Application.Interface;
+﻿using AutoMapper;
+using BABA.Application.Dto;
+using BABA.Application.Interface;
 using BABA.Domain.Models;
 using BABA.Persistence.Interface;
 using System;
@@ -10,21 +12,25 @@ namespace BABA.Application.Services
     {
         private readonly IAllPerssit _allPersist;
         private readonly IAtletaPersist _atletaPersist;
+        private readonly IMapper _mapper;
 
-        public AtletaService(IAllPerssit allPersist, IAtletaPersist atletaPersist)
+        public AtletaService(IAllPerssit allPersist, IAtletaPersist atletaPersist, IMapper mapper)
         {
             _allPersist = allPersist;
             _atletaPersist = atletaPersist;
+            _mapper = mapper;
         }
 
-        public async Task<Atleta> AddAtleta(Atleta model)
+        public async Task<AtletaDto> AddAtleta(AtletaDto model)
         {
             try
             {
-                _allPersist.Add<Atleta>(model);
+                var atleta = _mapper.Map<Atleta>(model);
+                _allPersist.Add<Atleta>(atleta);
                 if (await _allPersist.SaveChangesAsync())
                 {
-                    return await _atletaPersist.GetAtletaByIdAsync(model.AtletaId, false);
+                    var retorno = await _atletaPersist.GetAtletaByIdAsync(atleta.AtletaId, false);
+                    return _mapper.Map<AtletaDto>(retorno);
                 }
                 return null;
             }
@@ -33,22 +39,28 @@ namespace BABA.Application.Services
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<Atleta> UpdateAtleta(int atletaId, Atleta model)
+        public async Task<AtletaDto> UpdateAtleta(int atletaId, AtletaDto model)
         {
             try
             {
                 var atleta = await _atletaPersist.GetAtletaByIdAsync(atletaId, false);
+
                 if (atleta == null) return null;
 
                 model.AtletaId = atletaId;
 
-                _allPersist.Update(model);
+                _mapper.Map(model, atleta);
+
+                _allPersist.Update<Atleta>(atleta);
+
                 if (await _allPersist.SaveChangesAsync())
                 {
-                    return await _atletaPersist.GetAtletaByIdAsync(model.AtletaId, false);
+                    var retorno = await _atletaPersist.GetAtletaByIdAsync(atleta.AtletaId, false);
+                    return _mapper.Map<AtletaDto>(retorno);
                 }
                 return null;
             }
+
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
@@ -71,14 +83,15 @@ namespace BABA.Application.Services
             }
         }
 
-        public async Task<Atleta[]> GetAllAtletaAsync(bool includeMensalidade = false)
+        public async Task<AtletaDto[]> GetAllAtletaAsync(bool includeMensalidade = false)
         {
             try
             {
-                var condutor = await _atletaPersist.GetAllAtletaAsync(includeMensalidade);
-                if (condutor == null) return null;
+                var atletas = await _atletaPersist.GetAllAtletaAsync(includeMensalidade);
+                if (atletas == null) return null;
+                var result = _mapper.Map<AtletaDto[]>(atletas);
 
-                return condutor;
+                return result;
             }
             catch (Exception ex)
             {
@@ -86,14 +99,15 @@ namespace BABA.Application.Services
             }
         }
 
-        public async Task<Atleta[]> GetAllAtletaByMensalidadeAsync(string atletaNome, bool includeMensalidade = false)
+        public async Task<AtletaDto[]> GetAllAtletaByMensalidadeAsync(string atletaNome, bool includeMensalidade = false)
         {
             try
             {
                 var atletas = await _atletaPersist.GetAllAtletaByMensalidadeAsync(atletaNome, includeMensalidade);
                 if (atletas == null) return null;
+                var result = _mapper.Map<AtletaDto[]>(atletas);
 
-                return atletas;
+                return result;
             }
             catch (Exception ex)
             {
@@ -101,14 +115,15 @@ namespace BABA.Application.Services
             }
         }
 
-        public async Task<Atleta> GetAtletaByIdAsync(int atletaId, bool includeMensalidade = false)
+        public async Task<AtletaDto> GetAtletaByIdAsync(int atletaId, bool includeMensalidade = false)
         {
             try
             {
                 var atleta = await _atletaPersist.GetAtletaByIdAsync(atletaId, includeMensalidade);
                 if (atleta == null) return null;
+                var result = _mapper.Map<AtletaDto>(atleta);
 
-                return atleta;
+                return result;
             }
             catch (Exception ex)
             {

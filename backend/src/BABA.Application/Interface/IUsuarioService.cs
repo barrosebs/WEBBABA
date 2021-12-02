@@ -1,4 +1,5 @@
-﻿using BABA.Domain.Models;
+﻿using BABA.Application.Dto;
+using BABA.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace BABA.Application.Interface
 {
     public interface IUsuarioService
     {
-        Task<Usuario> AddUsuario(Usuario model);
-        Task<Usuario> UpdateUsuario(int usuarioId, Usuario model);
+        Task<UsuarioDto> AddUsuario(UsuarioDto model);
+        Task<UsuarioDto> UpdateUsuario(int usuarioId, UsuarioDto model);
         Task<bool> DeleteUsuario(int usuarioId);
 
-        Task<Usuario[]> GetAllUsuarioByUsuarioAsync(string condutor, bool includeControle = false);
-        Task<Usuario[]> GetAllUsuarioAsync(bool includeUsuario = false);
-        Task<Usuario> GetUsuarioByIdAsync(int usuarioId, bool includeControle = false);
+        Task<UsuarioDto[]> GetAllUsuarioByUsuarioAsync(string condutor, bool includeControle = false);
+        Task<UsuarioDto[]> GetAllUsuarioAsync(bool includeUsuario = false);
+        Task<UsuarioDto> GetUsuarioByIdAsync(int usuarioId, bool includeControle = false);
     }
 }
