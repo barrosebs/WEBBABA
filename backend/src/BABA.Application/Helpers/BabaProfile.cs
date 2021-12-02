@@ -9,6 +9,10 @@ namespace BABA.Application.Helpers
         public BabaProfile()
         {
             CreateMap<Atleta, AtletaDto>().ReverseMap();
+            CreateMap<Mensalidade, MensalidadeDto>().ReverseMap();
+            CreateMap<Categoria, CategoriaDto>().ReverseMap();
+            CreateMap<Controle, ControleDto>().ReverseMap();
+            CreateMap<Usuario, UsuarioDto>().ReverseMap();
         }
     }
 }
