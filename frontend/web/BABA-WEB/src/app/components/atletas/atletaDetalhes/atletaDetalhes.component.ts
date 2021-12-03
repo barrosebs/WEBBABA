@@ -1,6 +1,10 @@
+import { AtletaService } from './../../../services/atleta.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Atleta } from '@app/models/atleta';
 
 @Component({
   selector: 'app-atletaDetalhes',
@@ -9,13 +13,19 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 })
 export class AtletaDetalhesComponent implements OnInit {
 
+  public atleta = {} as Atleta;
   public registerForm!: FormGroup;
   public modalRef?: BsModalRef;
 
   constructor(
     private modalService: BsModalService
     , private fb: FormBuilder
-  ) { }
+    , private localeService: BsLocaleService
+    , private router: ActivatedRoute
+    , private atletaService: AtletaService
+  ) {
+    this.localeService.use('pt-br');
+   }
 
   ngOnInit(): void {
     this.validation();
@@ -47,6 +57,35 @@ export class AtletaDetalhesComponent implements OnInit {
 
   public resertForm(): void{
     this.registerForm.reset();
+  }
+
+  public cssValidation(campoForm: FormControl): any{
+    return {
+      'is-invalid': campoForm?.errors && campoForm?.touched
+    }
+  }
+
+  get bsConfig(): any{
+    return {
+      colorTheme: 'theme-green',
+      adaptivePosition: true,
+      dateInputFormat: 'DD/MM/YYYY',
+      containerClass: 'theme-default',
+      showWeekNumbers: false
+    };
+  }
+  public carregarAtleta(): void{
+    const atletaIdParam = this.router.snapshot.paramMap.get('id');
+
+    if(atletaIdParam !== null){
+      this.atletaService.getAtletaById(+atletaIdParam).subscribe(
+        (atleta: Atleta) => {
+          this.atleta = Object.assign({})
+        },
+        () => {},
+        () => {}
+      );
+    }
   }
 
 }
