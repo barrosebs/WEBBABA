@@ -28,18 +28,30 @@ namespace BABA.API.Controllers
         {
             try
             {
-
                 var atletas = await _atletaService.GetAllAtletaAsync(false);
                 if (atletas == null) return NoContent();
-
-
-
-
                 return Ok(atletas);
             }
             catch (Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error ao tentar recuperar Atleta. Erro {ex.Message}");
+            }
+        }
+
+        // GET api/<AtletaController>/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> getById(int id)
+        {
+            try
+            {
+                var atleta = await _atletaService.GetAtletaByIdAsync(id);
+                if (atleta == null) return NoContent();
+                return Ok(atleta);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, 
+                                        $"Error ao tentar recuperar atleta. Erro {ex.Message}");
             }
         }
 
@@ -59,12 +71,7 @@ namespace BABA.API.Controllers
             }
         }
 
-        // GET api/<AtletaController>/5
-        //[HttpGet("{id}")]
-        //public string GetById(int id)
-        //{
-        //    return "value";
-        //}
+        
         // POST api/<AtletaController>
         [HttpPost]
         public async Task<IActionResult> Post(AtletaDto model)

@@ -28,6 +28,7 @@ export class AtletaDetalhesComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.carregarAtleta();
     this.validation();
   }
 
@@ -78,11 +79,16 @@ export class AtletaDetalhesComponent implements OnInit {
     const atletaIdParam = this.router.snapshot.paramMap.get('id');
 
     if(atletaIdParam !== null){
-      this.atletaService.getAtletaById(+atletaIdParam).subscribe(
+      var a = this.atletaService.getAtletaById(+atletaIdParam).subscribe(
+        
         (atleta: Atleta) => {
-          this.atleta = Object.assign({})
+          this.atleta = {... atleta};
+          console.log(atleta);
+          this.registerForm.patchValue(this.atleta);
         },
-        () => {},
+        (error: any) => {
+          console.error(error);
+        },
         () => {}
       );
     }
