@@ -9,17 +9,21 @@ import { Atleta } from '../models/atleta';
 
 export class AtletaService {
 
-  baseUrl = 'https://localhost:5001/api/atleta';
-
+  baseUrl = 'https://localhost:5001/api/Atleta';
+ 
 constructor(private http: HttpClient) { }
 
 getAllAtleta(): Observable<Atleta[]>{
     return this.http.get<Atleta[]>(this.baseUrl);
   }
   getAtletaByTema(tema: string): Observable<Atleta[]>{
-    return this.http.get<Atleta[]>('${this.baseUrl}/getByTema/${tema}/tema');
+    return this.http.get<Atleta[]>(`${this.baseUrl}/getByTema/${tema}/tema`);
   }
   getAtletaById(id: number): Observable<Atleta>{
-    return this.http.get<Atleta>('${this.baseUrl}/${id} ');
+    console.log();
+    var url = this.http.get<Atleta>(`${this.baseUrl}/${id}`);
+    console.log('URL ID: '+url);
+    return this.http.get<Atleta>(`${this.baseUrl}/${id}`);
   }
+  
 }
