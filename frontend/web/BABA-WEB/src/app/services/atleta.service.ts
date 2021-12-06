@@ -20,10 +20,6 @@ getAllAtleta(): Observable<Atleta[]>{
     return this.http.get<Atleta[]>(`${this.baseUrl}/getByTema/${tema}/tema`);
   }
   getAtletaById(id: number): Observable<Atleta>{
-    console.log();
-    var url = this.http.get<Atleta>(`${this.baseUrl}/${id}`);
-    console.log('URL ID: '+url);
     return this.http.get<Atleta>(`${this.baseUrl}/${id}`);
-  }
-  
+  } 
 }
