@@ -50,7 +50,7 @@ namespace BABA.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, 
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
                                         $"Error ao tentar recuperar atleta. Erro {ex.Message}");
             }
         }
@@ -71,7 +71,7 @@ namespace BABA.API.Controllers
             }
         }
 
-        
+
         // POST api/<AtletaController>
         [HttpPost]
         public async Task<IActionResult> Post(AtletaDto model)
@@ -110,7 +110,9 @@ namespace BABA.API.Controllers
         {
             try
             {
-                return await _atletaService.DeleteAtleta(id) ? Ok("Deletado com sucesso!") : BadRequest("Atleta não deletado!");
+                return await _atletaService.DeleteAtleta(id)
+                ? Ok(true)
+                : BadRequest("Atleta não deletado!");
             }
             catch (Exception ex)
             {
