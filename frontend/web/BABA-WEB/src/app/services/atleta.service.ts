@@ -10,16 +10,27 @@ import { Atleta } from '../models/atleta';
 export class AtletaService {
 
   baseUrl = 'https://localhost:5001/api/Atleta';
- 
+
 constructor(private http: HttpClient) { }
 
-getAllAtleta(): Observable<Atleta[]>{
+public getAllAtleta(): Observable<Atleta[]>{
     return this.http.get<Atleta[]>(this.baseUrl);
   }
-  getAtletaByTema(tema: string): Observable<Atleta[]>{
+public getAtletaByTema(tema: string): Observable<Atleta[]>{
     return this.http.get<Atleta[]>(`${this.baseUrl}/getByTema/${tema}/tema`);
   }
-  getAtletaById(id: number): Observable<Atleta>{
+public  getAtletaById(id: number): Observable<Atleta>{
     return this.http.get<Atleta>(`${this.baseUrl}/${id}`);
-  } 
+  }
+  public post(atleta: Atleta): Observable<Atleta>{
+    return this.http.post<Atleta>(this.baseUrl, atleta);
+  }
+
+ public put(atleta: Atleta): Observable<Atleta>{
+    return this.http.put<Atleta>(`${this.baseUrl}/${atleta.atletaId}`, atleta);
+  }
+
+ public deleteAtleta(id: number): Observable<boolean>{
+    return this.http.delete<boolean>(`${this.baseUrl}/${id}`);
+  }
 }
