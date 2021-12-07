@@ -20,7 +20,7 @@ export class AtletaListaComponent implements OnInit {
   public exibirImagem = false;
   public imageLargura = 60;
   public imageMargin = 5;
-
+  public atletaId = 0;
   message?: string;
 
     constructor
@@ -69,7 +69,7 @@ export class AtletaListaComponent implements OnInit {
         this.spinner.show();
         this.toastrService.error('Xiii deu ruim!!! Chama o pessoal de TI! Erro ao tentar carregar os atletas.','ERRO!');
       },
-         complete: () => this.spinner.show()
+         complete: () => this.spinner.hide()
     });
   }
 
@@ -86,24 +86,46 @@ export class AtletaListaComponent implements OnInit {
 
   }
 
-  public confirm(): void {
-    this.message = 'Confirmed!';
-    this.toastrService.success('O atleta foi deletado com sucesso!','Deletado');
+public openModal(event:any, template: TemplateRef<any>, atletaId: number): void{
+      this.atletaId = atletaId;
+      this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+    }
+
+public confirm(): void {
     this.modalRef?.hide();
+    this.spinner.show();
+    this.atletaService.deleteAtleta(this.atletaId).subscribe(
+      (result: boolean) => {
+        console.log('resultado: '+ result);
+        if(result === true){
+          this.toastrService.success('O atleta foi deletado com sucesso!','Deletado');
+          this.spinner.hide();
+          this.getAtletas();
+        }
+      },
+      (error: any) => {
+        console.error(error);
+        this.toastrService.error(`Erro ao tentar deletar o atleta código ${this.atletaId}`,'ERRO');
+        this.spinner.hide();
+
+      },
+      () => {
+        this.spinner.hide();
+      }
+    )
   }
 
   public decline(): void {
     this.message = 'Declined!';
     this.modalRef?.hide();
   }
+
   public openDetalhes(id: number):void{
     this.router.navigate([`/atletas/detalhes/${id}`]);
     console.log(this.router);
   }
 
-
-  public openModal(template: TemplateRef<any>){
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  public salvarAlteracao(): void {
+    this.spinner.show();
   }
-
 }

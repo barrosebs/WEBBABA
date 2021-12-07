@@ -22,6 +22,8 @@ export class AtletaDetalhesComponent implements OnInit {
   public registerForm!: FormGroup;
   public modalRef?: BsModalRef;
   public datePickerConfig: Partial<BsDatepickerConfig>;
+  public estadoSalvar = 'post';
+
   constructor(
     private modalService: BsModalService
     , private fb: FormBuilder
@@ -55,14 +57,51 @@ export class AtletaDetalhesComponent implements OnInit {
       imageUrl:   ['',Validators.required],
     })
   }
+  public carregarAtleta(): void{
+    const atletaIdParam = this.router.snapshot.paramMap.get('id');
+    if(atletaIdParam !== null){
+      this.spinner.show();
 
+      this.estadoSalvar = 'put';
+
+      this.atletaService.getAtletaById(+atletaIdParam).subscribe(
+
+        (atleta: Atleta) => {
+          this.atleta = {... atleta};
+          this.registerForm.patchValue(this.atleta);
+        },
+        (error: any) => {
+          this.spinner.hide();
+          this.toastr.error('Erro ao tentar EDITAR o ATLETA!','ERROR')
+          console.error(error);
+        },
+        () => { this.spinner.hide()}
+      );
+    }
+  }
   public openModal(template: TemplateRef<any>){
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
   public salvarAlteracao(): void{
+    this.spinner.show();
+    if(this.registerForm.valid){
 
-  }
+      this.atleta = this.estadoSalvar === 'post'
+        ? {...this.registerForm.value}
+        : {atletaId: this.atleta.atletaId,...this.registerForm.value};
+
+        this.atletaService[this.estadoSalvar](this.atleta).subscribe(
+          () => this.toastr.success('Alterações salvas com Sucesso!','GRAVAR'),
+          (error: any) => {
+            console.error(error);
+            this.spinner.hide();
+            this.toastr.error('Error ao tentar salvar!','ERRO');
+          },
+          () =>  this.spinner.hide()
+          );
+    };
+  };
 
   public resertForm(): void{
     this.registerForm.reset();
@@ -89,26 +128,6 @@ export class AtletaDetalhesComponent implements OnInit {
      // containerClass: 'theme-default',
       showWeekNumbers: false
     };
-  }
-  public carregarAtleta(): void{
-    const atletaIdParam = this.router.snapshot.paramMap.get('id');
-
-    if(atletaIdParam !== null){
-      this.spinner.show();
-      var a = this.atletaService.getAtletaById(+atletaIdParam).subscribe(
-        
-        (atleta: Atleta) => {
-          this.atleta = {... atleta};
-          this.registerForm.patchValue(this.atleta);
-        },
-        (error: any) => {
-          this.spinner.hide();
-          this.toastr.error('Erro ao tentar EDITAR o ATLETA!','ERROR')
-          console.error(error);
-        },
-        () => { this.spinner.hide()}
-      );
-    }
   }
 
 }
