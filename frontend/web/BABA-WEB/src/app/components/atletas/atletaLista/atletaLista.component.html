@@ -1,16 +1,18 @@
-
 <div class="card rounded-3 shadow-sm p-3">
-
   <div class="form-control-lg">
     <div class="row g-2">
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-primary" type="button" routerLink="/atletas/detalhes">
-         <i class="fa fa-plus"></i>
-         <b class="ml-1 me-2 p-3">Novo</b>
+        <button
+          class="btn btn-primary"
+          type="button"
+          routerLink="/atletas/detalhes"
+        >
+          <i class="fa fa-plus"></i>
+          <b class="ml-1 me-2 p-3">Novo</b>
         </button>
       </div>
-      <div class="input-group mb-2" >
-        <div class="input-group-prepend" >
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
           <div class="input-group-text p-3">
             <i class="fa fa-search"> </i>
             Filtro:
@@ -69,12 +71,12 @@
         <td>{{ atleta.nome }}</td>
         <td>{{ atleta.camisa }}</td>
         <td>{{ atleta.dataNascimento | DateTimeFormatPipe }}</td>
-        <td class="d-none d-md-table-cell">
+        <td class="d-none d-md-table-cell comissao">
           <i
             class="{{
               atleta.comissao
-                ? 'fa fa-thumbs-o-up fa-2x'
-                : 'fa fa-thumbs-o-down fa-2x'
+                ? 'text-success fas fa-thumbs-up '
+                : 'text-danger fas fa-thumbs-down'
             }}"
           ></i>
         </td>
@@ -97,7 +99,7 @@
               aria-label=""
               class="btn btn-danger"
               tooltip="Deletar"
-              (click)="openModal(templateDel)"
+              (click)="openModal($event, templateDel, atleta.atletaId)"
             >
               <i class="fa fa-trash"> </i>
             </button>
@@ -116,14 +118,18 @@
     </tfoot>
   </table>
 
-<ng-template #templateDel>
-  <div class="modal-body text-center">
-    <p>Tem certeza que deseja deletar esse atleta?</p>
-    <button type="button" class="btn btn-default" (click)="confirm()">
-      Sim
-    </button>
-    <button type="button" class="btn btn-primary" (click)="decline()">
-      Não
-    </button>
-  </div>
-</ng-template>
+  <ng-template #templateDel>
+    <div class="modal-body text-center">
+      <p>
+        Tem certeza que deseja deletar esse Atleta com código
+        {{ this.atletaId }}?
+      </p>
+      <button type="button" class="btn btn-default" (click)="confirm()">
+        Sim
+      </button>
+      <button type="button" class="btn btn-primary" (click)="decline()">
+        Não
+      </button>
+    </div>
+  </ng-template>
+</div>
