@@ -8,7 +8,7 @@ namespace BABA.Application.Dto
     {
         public int AtletaId { get; set; }
         [Display(Name = "Nome do Atleta")]
-        [MinLength(10, ErrorMessage = "Campo {0} é obirgatório mínimo de 3")]
+        [MinLength(10, ErrorMessage = "Campo {0} é obirgatório mínimo de 10")]
         [Required(ErrorMessage = "Campo {0} é obrigatório")]
         public string Nome { get; set; }
         public string Apelido { get; set; }
