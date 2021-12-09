@@ -11,13 +11,13 @@ namespace BABA.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AtletaController : ControllerBase
+    public class MensalidadesController : ControllerBase
     {
-        private readonly IAtletaService _atletaService;
+        private readonly IMensalidadeService _mensadalideService;
 
-        public AtletaController(IAtletaService atletaService)
+        public MensalidadesController(IMensalidadeService mensadalideService)
         {
-            _atletaService = atletaService;
+            _mensadalideService = mensadalideService;
         }
 
         // GET: api/<AtletaController>
@@ -26,23 +26,23 @@ namespace BABA.API.Controllers
         {
             try
             {
-                var atletas = await _atletaService.GetAllAtletaAsync(false);
+                var atletas = await _mensadalideService.GetAllMensalidadeAsync(false);
                 if (atletas == null) return NoContent();
                 return Ok(atletas);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error ao tentar recuperar Atleta. Erro {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error ao tentar recuperar Mensalidades. Erro {ex.Message}");
             }
         }
 
-        // GET api/<AtletaController>/5
+        // GET api/<MensalidadeController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> getById(int id)
         {
             try
             {
-                var atleta = await _atletaService.GetAtletaByIdAsync(id);
+                var atleta = await _mensadalideService.GetMensalidadeByIdAsync(id);
                 if (atleta == null) return NoContent();
                 return Ok(atleta);
             }
@@ -53,14 +53,14 @@ namespace BABA.API.Controllers
             }
         }
 
-        // GET api/<AtletaController>/atleta
+        // GET api/<MensalidadeController>/atleta
         [HttpGet("{atleta}/atleta")]
-        public async Task<IActionResult> GetByAtleta(string mensalidade)
+        public async Task<IActionResult> GetByMensalidade(string mensalidade)
         {
             try
             {
-                var atleta = await _atletaService.GetAllAtletaByMensalidadeAsync(mensalidade, false);
-                if (atleta == null) return NoContent();
+                var atleta = await _mensadalideService.GetAllMensalidadeByAtletaAsync(mensalidade, false);
+                if (mensalidade == null) return NoContent();
                 return Ok(atleta);
             }
             catch (Exception ex)
@@ -70,13 +70,13 @@ namespace BABA.API.Controllers
         }
 
 
-        // POST api/<AtletaController>
+        // POST api/<MensalidadeController>
         [HttpPost]
-        public async Task<IActionResult> Post(AtletaDto model)
+        public async Task<IActionResult> Post(MensalidadeDto model)
         {
             try
             {
-                var atleta = await _atletaService.AddAtleta(model);
+                var atleta = await _mensadalideService.AddMensalidade(model);
                 if (atleta == null) return NoContent();
                 return Ok(atleta);
             }
@@ -86,35 +86,35 @@ namespace BABA.API.Controllers
             }
         }
 
-        // PUT api/<AtletaController>/5
+        // PUT api/<MensalidadeController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, AtletaDto model)
+        public async Task<IActionResult> Put(int id, MensalidadeDto model)
         {
             try
             {
-                var atleta = await _atletaService.UpdateAtleta(id, model);
+                var atleta = await _mensadalideService.UpdateMensalidade(id, model);
                 if (atleta == null) return NoContent();
                 return Ok(atleta);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error ao tentar alterar Atleta. Erro {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error ao tentar alterar Mensalidades. Erro {ex.Message}");
             }
         }
 
-        // DELETE api/<AtletaController>/5
+        // DELETE api/<MensalidadeController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                return await _atletaService.DeleteAtleta(id)
+                return await _mensadalideService.DeleteMensalidade(id)
                 ? Ok(true)
-                : BadRequest("Atleta não deletado!");
+                : BadRequest("Mensalidade não deletado!");
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error ao tentar deletar Atleta. Erro {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error ao tentar deletar Mensalidades. Erro {ex.Message}");
             }
         }
     }

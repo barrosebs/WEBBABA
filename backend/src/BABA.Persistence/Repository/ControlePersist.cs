@@ -19,18 +19,27 @@ namespace BABA.Persistence.Repository
             _babaContext = babaContext;
         }
 
-        public Task<Controle[]> GetAllControleAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Controle[]> GetAllControleByCondutorAsync(string nome, bool includeAtleta = false)
+        public async Task<Controle[]> GetAllControleAsync(bool includeAtleta = false)
         {
             IQueryable<Controle> query = _babaContext.Controles;
 
             if (includeAtleta)
             {
-               //implements
+                query = query
+                .Include(c => c.Mensalidade)
+                .ThenInclude(p => p.MensalidadeId);
+            }
+            query = query.AsNoTracking().OrderBy(e => e.MensalidadeId);
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Controle[]> GetAllControleByAtletaAsync(string nome, bool includeAtleta = false)
+        {
+            IQueryable<Controle> query = _babaContext.Controles;
+
+            if (includeAtleta)
+            {
+                //implements
             }
             query = query.AsNoTracking().OrderBy(e => e.CategoriaId).Where(c => c.Nome.ToLower().Contains(nome.ToLower()));
             return await query.ToArrayAsync();
