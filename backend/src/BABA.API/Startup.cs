@@ -34,10 +34,16 @@ namespace BABA.API
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddScoped<IAtletaService, AtletaService>();
             services.AddScoped<IAllPerssit, AllPersist>();
+
+            services.AddScoped<IAtletaService, AtletaService>();
             services.AddScoped<IAtletaPersist, AtletaPersist>();
 
+            services.AddScoped<IMensalidadeService, MensalidadeService>();
+            services.AddScoped<IMensalidadePersist, MensalidadePersist>();
+
+            services.AddScoped<IControleService, ControleService>();
+            services.AddScoped<IControlePersist, ControlePersist>();
             services.AddCors();
 
             services.AddSwaggerGen(c =>
