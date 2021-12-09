@@ -87,19 +87,29 @@ export class AtletaDetalhesComponent implements OnInit {
     this.spinner.show();
     if(this.registerForm.valid){
 
-      this.atleta = this.estadoSalvar === 'post'
-        ? {...this.registerForm.value}
-        : {atletaId: this.atleta.atletaId,...this.registerForm.value};
-
-        this.atletaService[this.estadoSalvar](this.atleta).subscribe(
-          () => this.toastr.success('Alterações salvas com Sucesso!','GRAVAR'),
+      if(this.estadoSalvar === 'post'){
+        this.atleta = {...this.registerForm.value}
+        this.atletaService['post'](this.atleta).subscribe(
+          () => this.toastr.success('Atleta salvo com sucesso!', 'Sucesso'),
           (error: any) => {
             console.error(error);
             this.spinner.hide();
-            this.toastr.error('Error ao tentar salvar!','ERRO');
+            this.toastr.error('Error ao salvar atleta', 'Error');
           },
-          () =>  this.spinner.hide()
-          );
+          () => this.spinner.hide()
+        );
+      }else{
+       this.atleta = {atletaId: this.atleta.atletaId,...this.registerForm.value};
+        this.atletaService['put'](this.atleta).subscribe(
+          () => this.toastr.success('Atleta salvo com sucesso!', 'Sucesso'),
+          (error: any) => {
+            console.error(error);
+            this.spinner.hide();
+            this.toastr.error('Error ao salvar atleta', 'Error');
+          },
+          () => this.spinner.hide()
+        );
+      }
     };
   };
 
