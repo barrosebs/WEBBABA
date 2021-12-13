@@ -1,8 +1,11 @@
 ﻿using BABA.Application.Dto;
 using BABA.Application.Interface;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,9 +17,11 @@ namespace BABA.API.Controllers
     public class AtletaController : ControllerBase
     {
         private readonly IAtletaService _atletaService;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public AtletaController(IAtletaService atletaService)
+        public AtletaController(IAtletaService atletaService, IWebHostEnvironment hostEnvironment)
         {
+            _hostEnvironment = hostEnvironment;
             _atletaService = atletaService;
         }
 
@@ -85,6 +90,30 @@ namespace BABA.API.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error ao tentar adicionar condutor. Erro {ex.Message}");
             }
         }
+        // POST api/<AtletaController>
+        [HttpPost("upload-image/{atletaId}")]
+        public async Task<IActionResult> uploadImage(int atletaId)
+        {
+            try
+            {
+                var atleta = await _atletaService.GetAtletaByIdAsync(atletaId, true);
+                if (atleta == null) return NoContent();
+
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    DeleteImage(atleta.imageUrl);
+                    atleta.imageUrl = await SaveImage(file);
+                }
+                var AtletaRetorno = await _atletaService.UpdateAtleta(atletaId, atleta);
+
+                return Ok(AtletaRetorno);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error ao tentar adicionar condutor. Erro {ex.Message}");
+            }
+        }
 
         // PUT api/<AtletaController>/5
         [HttpPut("{id}")]
@@ -116,6 +145,28 @@ namespace BABA.API.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Error ao tentar deletar Atleta. Erro {ex.Message}");
             }
+        }
+        [NonAction]
+        private async Task<string> SaveImage(IFormFile imageFile)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName)
+                                                                            .Take(10)//get os 10 primeiro caracteres
+                                                                            .ToArray()).Replace(' ', '_');
+            imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
+
+            var imiagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resource/images", imageName);
+            using (var fileStream = new FileStream(imiagePath, FileMode.Create)){
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return imageName;
+        }
+
+        [NonAction]
+        private void DeleteImage(string imageName)
+        {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imageName);
+            if(System.IO.File.Exists(imagePath))
+            System.IO.File.Delete(imagePath);
         }
     }
 }
