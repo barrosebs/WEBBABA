@@ -23,7 +23,7 @@ export class AtletaDetalhesComponent implements OnInit {
   public modalRef?: BsModalRef;
   public datePickerConfig: Partial<BsDatepickerConfig>;
   public estadoSalvar = 'post';
-
+  public imageUrl = 'assets/image/upload.png';
   constructor(
     private modalService: BsModalService
     , private fb: FormBuilder
@@ -42,6 +42,9 @@ export class AtletaDetalhesComponent implements OnInit {
     this.validation();
   }
 
+  get modoEditar(): boolean{
+    return this.estadoSalvar === 'put';
+  }
   get f():any{
     return this.registerForm.controls;
   }
