@@ -10,6 +10,7 @@ import { Atleta } from '@app/models/atleta';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-atletaDetalhes',
@@ -24,6 +25,7 @@ export class AtletaDetalhesComponent implements OnInit {
   public datePickerConfig: Partial<BsDatepickerConfig>;
   public estadoSalvar = 'post';
   public imageUrl = 'assets/image/upload.png';
+
   constructor(
     private modalService: BsModalService
     , private fb: FormBuilder
@@ -32,6 +34,7 @@ export class AtletaDetalhesComponent implements OnInit {
     , private atletaService: AtletaService
     , private spinner: NgxSpinnerService
     , private toastr : ToastrService
+    
     ) {
       this.localeService.use('pt-br');
       this.datePickerConfig = Object.assign({}, {containerClass: 'theme-default'})
@@ -57,7 +60,6 @@ export class AtletaDetalhesComponent implements OnInit {
       dataNascimento:   ['',Validators.required],
       whatsApp:   ['',Validators.required],
       comissao:   ['',Validators.required],
-      imageUrl:   ['',Validators.required],
     })
   }
   public carregarAtleta(): void{
@@ -72,6 +74,9 @@ export class AtletaDetalhesComponent implements OnInit {
         (atleta: Atleta) => {
           this.atleta = {... atleta};
           this.registerForm.patchValue(this.atleta);
+          if(this.atleta.imageUrl !== ''){
+            this.imageUrl = environment.apiUrl + 'resources/images/' + this.atleta.imageUrl;
+          }
         },
         (error: any) => {
           this.spinner.hide();
@@ -141,6 +146,31 @@ export class AtletaDetalhesComponent implements OnInit {
      // containerClass: 'theme-default',
       showWeekNumbers: false
     };
+
+  }
+  public onFileChange(evt: any):void{
+    console.log(evt);
+    const selectFiles = <FileList>evt.srcElement.files;
+    const reader = new FileReader();
+    reader.onload = (event: any) => this.imageUrl = event.target.result;
+    reader.readAsDataURL(selectFiles[0]);
+
+    this.uploadImagem(this.atleta.atletaId, selectFiles);
+  }
+
+  public uploadImagem(atletaId: number, eve:any ):void{
+    this.spinner.show();
+    this.atletaService.postUpload(atletaId, eve ).subscribe(
+      () => {
+        this.carregarAtleta();
+        this.toastr.success('Imagem atualizada com sucesso!', 'Sucesso!');
+      },
+      (error: any) => {
+        this.toastr.error('Erro ao tentar carregar imagem!', 'Error!');
+        console.log(error);
+        
+      }
+    ).add(() => this.spinner.hide())
   }
 
 }
