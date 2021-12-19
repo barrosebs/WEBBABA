@@ -61,7 +61,7 @@
         <td class="d-none d-md-table-cell">
           <img
             *ngIf="exibirImagem"
-            src="https://localhost:5001/image/{{ atleta.imageUrl }}"
+            [src]="mostraImagem(atleta.imageUrl)"
             [style.width.px]="imageLargura"
             [style.margin.px]="imageMargin"
             alt=""

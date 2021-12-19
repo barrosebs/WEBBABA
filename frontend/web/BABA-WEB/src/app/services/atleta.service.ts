@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Atleta } from '../models/atleta';
 import { take } from 'rxjs/operators';
+import { environment } from '@environments/environment';
   @Injectable({ //chamada direto do app.module/providers
     providedIn: 'root'
   })
 
 export class AtletaService {
 
-  baseUrl = 'https://localhost:5001/api/Atleta';
+  baseUrl = environment.apiUrl +'api/Atleta';
 
 constructor(private http: HttpClient) { }
 
@@ -43,4 +44,13 @@ public  getAtletaById(id: number): Observable<Atleta>{
     .delete<boolean>(`${this.baseUrl}/${id}`)
     .pipe(take(1));
   }
+  postUpload(atletaId: number, file: FileList): Observable<Atleta>{
+    const fileToUpload = file[0];
+    const formData = new FormData();
+    formData.append('file', fileToUpload);
+    return this.http
+    .post<Atleta>(`${this.baseUrl}/upload-image/${atletaId}`, formData)
+    .pipe(take(1));
+  }
 }
+

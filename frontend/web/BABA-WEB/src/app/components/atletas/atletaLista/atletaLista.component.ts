@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '@environments/environment';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +22,7 @@ export class AtletaListaComponent implements OnInit {
   public imageLargura = 60;
   public imageMargin = 5;
   public atletaId = 0;
+  public imageUrl = '';
   message?: string;
 
     constructor
@@ -64,6 +66,7 @@ export class AtletaListaComponent implements OnInit {
     this.atletaService.getAllAtleta().subscribe({
       next: (_atleta: Atleta[]) => {
         this.atletas = _atleta;
+        this.imageUrl = environment.apiUrl + 'resources/images' + _atleta;
         this.atletasFiltrados = this.atletas;
       }, error: (error: any) => {
         this.spinner.show();
@@ -71,8 +74,17 @@ export class AtletaListaComponent implements OnInit {
       },
          complete: () => this.spinner.hide()
     });
+
+    
   }
 
+
+  public mostraImagem(imageUrl: string): string{
+    return imageUrl !== '' 
+    ? `${environment.apiUrl}resources/images/${imageUrl}`
+    : 'assets/image/sem-imagem.png';
+  }
+  
   public mostrarImagem(): void{
    this.exibirImagem = !this.exibirImagem
   }
