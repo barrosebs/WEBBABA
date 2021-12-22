@@ -6,7 +6,6 @@ namespace BABA.Application.Dto
     {
         public int MensalidadeId { get; set; }
         public string Vencimento { get; set; }
-        public string DataCadastro { get; set; }
         public decimal ValorPrincipal { get; set; }
         public decimal ValorPagamento { get; set; }
         public decimal ValorDesconto { get; set; }

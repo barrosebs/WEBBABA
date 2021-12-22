@@ -12,6 +12,10 @@ import { TooltipModule} from 'ngx-bootstrap/tooltip';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ptBrLocale } from 'ngx-bootstrap/locale';
+
 
 import { MenuComponent } from './shared/menu/menu.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -29,6 +33,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
+
+defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
   declarations: [
@@ -48,8 +54,9 @@ import { RegistrationComponent } from './components/user/registration/registrati
       RegistrationComponent
    ],
   imports: [
-    BrowserAnimationsModule,
     BrowserModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),

@@ -1,155 +1,175 @@
-<div class="card rounded shadow-sm p-3">
-  <form [formGroup]="registerForm">
-    <p>form valor: {{ registerForm.value | json }}</p>
-    <p>form status: {{ registerForm.status | json }}</p>
+<div class="row">
+  <div class="col-md-8" [ngClass]="{'col-md-6': modoEditar, 'col-md-12': !modoEditar}">
+    <div class="card rounded shadow-sm p-3">
+      <form [formGroup]="registerForm">
+        <div class="form-row">
+         <!-- <p>form valor: {{ registerForm.value | json }}</p>
+          <p>form status: {{ registerForm.status | json }}</p>
+          <div class="form-group col-md-4">
+            <label>Imagem</label>
+            <input
+              type="text"
+              class="form-control is-invalid"
+              [ngClass]="cssValidation(f.imageUrl)"
+              formControlName="imageUrl"
+            />
+            <div class="invalid-feedback">O campo IMAGEM é obrigatório!</div>
+          </div>-->
+          <div class="form-group col-md-8">
+            <label>Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              [ngClass]="cssValidation(f.nome)"
+              formControlName="nome"
+              placeholder="Nome do Atleta" [(ngModel)]="atleta.nome"
+            />
+            <div
+              *ngIf="f.nome?.hasError('required') && f.nome?.touched"
+              class="invalid-feedback"
+            >
+              O campo NOME é obrigatório!
+            </div>
+            <div
+              *ngIf="f.nome?.hasError('minlength') && f.nome?.touched"
+              class="invalid-feedback"
+            >
+              O campo NOME deve conter o mínimo de 4 caracteres!
+            </div>
+            <div
+              *ngIf="f.nome?.hasError('maxlength') && f.nome?.touched"
+              class="invalid-feedback"
+            >
+              O campo NOME deve conter o máximo de 100 caracteres!
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-xs-12 col-md-5 col-lg-4 form-group mb-3">
+            <label>Data de Nascimento</label>
+            <input
+              id="dataNascimento"
+              type="datetime"
+              class="form-control is-invalid"
+              bsDatepicker
+              formControlName="date"
+              [bsConfig]="bsConfig"
+              [ngClass]="cssValidation(f.dataNascimento)"
+              value="{{ atleta.dataNascimento | DateTimeFormatPipe }}"
+              formControlName="dataNascimento"
+              placeholder="Data de nascimento"
+            />
+            <div class="invalid-feedback">
+              O campo DATA DE NASCIMENTO é obrigatório!
+            </div>
+          </div>
+          <div class="form-group col-md-8">
+            <label>Apelido</label>
+            <input
+              type="text"
+              class="form-control"
+              [ngClass]="cssValidation(f.apelido)"
+              formControlName="apelido"
+              placeholder="Apelido do Atleta"
+            />
+            <div class="invalid-feedback">O campo APELIDO é obrigatório!</div>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Número do Colete</label>
+            <input
+              type="text"
+              class="form-control is-invalid"
+              [ngClass]="cssValidation(f.camisa)"
+              formControlName="camisa"
+              placeholder="Número do Colete"
+            />
+            <div class="invalid-feedback">
+              O campo NUMERO DO COLETE é obrigatório!
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label>Posição do Atleta</label>
+            <input
+              type="text"
+              class="form-control is-invalid"
+              [ngClass]="cssValidation(f.posicao)"
+              formControlName="posicao"
+              placeholder="Posição de Jogo do Atleta"
+            />
+            <div class="invalid-feedback">
+              O campo POSIÇÃO DO ATLETA é obrigatório!
+            </div>
+          </div>
+          <div class="form-check form-switch">
+            <input
+              type="checkbox"
+              class="form-check-input is-invalid"
+              [ngClass]="cssValidation(f.comissao)"
+              formControlName="comissao"
+              placeholder="O atleta pertence a comissão?"
+            />
+            <label class="form-check-label" for="flexSwitchCheckDefault">
+              Comissão ?</label
+            >
+            <div class="invalid-feedback">O campo COMISSÃO é obrigatório!</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label>Telefone</label>
+            <input
+              type="text"
+              class="form-control is-invalid"
+              [ngClass]="cssValidation(f.whatsApp)"
+              formControlName="whatsApp"
+              placeholder="informe o número de telefone válido?"
+            />
+            <div class="invalid-feedback">O campo TELEFONE é obrigatório!</div>
+          </div>
+        </div>
+        <div class="card-footer p-3">
+          <div >
+            <button
+              class="btn btn-primary"
+              (click)="salvarAlteracao()"
+              [disabled]="!registerForm.valid"
+            >
+              Salvar Alterações
+            </button>
+          </div>
+          <div>
+            <button class="btn btn-secondary" (click)="resertForm()">
+              Limpar Formulário
+            </button>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<div class="col-md-4 card-atleta-show" *ngIf="modoEditar">
+  <div class="card shadow-sm ">
     <div class="form-row">
-      <div class="form-group col-md-4">
-        <label>Imagem</label>
-        <input
-          type="text"
-          class="form-control is-invalid"
-          [ngClass]="{
-            'is-invalid': f.imageUrl?.errors && f.imageUrl?.touched
-          }"
-          formControlName="imageUrl"
-        />
-        <div class="invalid-feedback">O campo IMAGEM é obrigatório!</div>
-      </div>
-      <div class="form-group col-md-8">
-        <label>Nome</label>
-        <input
-          type="text"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid': f.nome?.errors && f.nome?.touched
-          }"
-          formControlName="nome"
-          placeholder="Nome do Atleta"
-        />
-        <div
-          *ngIf="f.nome?.hasError('required') && f.nome?.touched"
-          class="invalid-feedback"
-        >
-          O campo NOME é obrigatório!
-        </div>
-        <div
-          *ngIf="f.nome?.hasError('minlength') && f.nome?.touched"
-          class="invalid-feedback"
-        >
-          O campo NOME deve conter o mínimo de 4 caracteres!
-        </div>
-        <div
-          *ngIf="f.nome?.hasError('maxlength') && f.nome?.touched"
-          class="invalid-feedback"
-        >
-          O campo NOME deve conter o máximo de 100 caracteres!
-        </div>
+      <div class="form-group ">
+        <input type="file" #file (change)="onFileChange($event)" class="form-control is-invalid" placeholder="" style="display: none;" />
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-group col-md-8">
-        <label>Apelido</label>
-        <input
-          type="text"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid': f.apelido?.errors && f.apelido?.touched
-          }"
-          formControlName="apelido"
-          placeholder="Apelido do Atleta"
-        />
-        <div class="invalid-feedback">O campo APELIDO é obrigatório!</div>
+    <div class="form-group p-3">
+      <img class="image img-fluid" [src]="imageUrl" (click)="file.click()" alt="card para upload de imagem atleta"/>
+    </div>
+      <div class="d-flex p-3 harder"> 
+        <i class="fa fa-user-plus"></i><span class="p-0 fs-4"> Atleta: {{atleta.nome | uppercase }}</span>
       </div>
-      <div class="form-group col-md-4">
-        <label>Número do Colete</label>
-        <input
-          type="text"
-          class="form-control is-invalid"
-          [ngClass]="{
-            'is-invalid': f.camisa?.errors && f.camisa?.touched
-          }"
-          formControlName="camisa"
-          placeholder="Número do Colete"
-        />
-        <div class="invalid-feedback">
-          O campo NUMERO DO COLETE é obrigatório!
-        </div>
+      <div class="p-3">
+        <i class="fa fa-futbol-o"></i><span class=" fs-6"> Número do Colete: {{atleta.camisa }}</span>
+
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-group col-md-3">
-        <label>Posição do Atleta</label>
-        <input
-          type="text"
-          class="form-control is-invalid"
-          [ngClass]="{
-            'is-invalid': f.posicao?.errors && f.posicao?.touched
-          }"
-          formControlName="posicao"
-          placeholder="Posição de Jogo do Atleta"
-        />
-        <div class="invalid-feedback">
-          O campo POSIÇÃO DO ATLETA é obrigatório!
-        </div>
-      </div>
-      <div class="form-group col-md-3">
-        <label>Comissão?</label>
-        <input
-          type="text"
-          class="form-control is-invalid"
-          [ngClass]="{
-            'is-invalid': f.comissao?.errors && f.comissao?.touched
-          }"
-          formControlName="comissao"
-          placeholder="O atleta pertence a comissão?"
-        />
-        <div class="invalid-feedback">O campo COMISSÃO é obrigatório!</div>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-4">
-        <label>Telefone</label>
-        <input
-          type="text"
-          class="form-control is-invalid"
-          [ngClass]="{
-            'is-invalid': f.whatsApp?.errors && f.whatsApp?.touched
-          }"
-          formControlName="whatsApp"
-          placeholder="informe o número de telefone válido?"
-        />
-        <div class="invalid-feedback">O campo TELEFONE é obrigatório!</div>
-      </div>
-      <div class="form-group col-md-8">
-        <label>Data de Nascimento</label>
-        <input
-          type="text"
-          class="form-control is-invalid"
-          [ngClass]="{
-            'is-invalid': f.dataNascimento?.errors && f.dataNascimento?.touched
-          }"
-          formControlName="dataNascimento"
-          placeholder="informe a data de nascimento"
-        />
-        <div class="invalid-feedback">
-          O campo DATA DE NASCIMENTO é obrigatório!
-        </div>
-      </div>
-    </div>
-    <div class="card-footer">
-      <button class="btn btn-secondary" (click)="resertForm()">
-        Limpar Formulário
-      </button>
-      <button
-        class="btn btn-primary"
-        (click)="salvarAlteracao()"
-        [disabled]="!registerForm.valid"
-      >
-        Salvar Alterações
-      </button>
-    </div>
-  </form>
 </div>
+</div>
+
 <br />
 
 <!--MODAL-->

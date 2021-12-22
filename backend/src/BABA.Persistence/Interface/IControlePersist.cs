@@ -9,8 +9,8 @@ namespace BABA.Persistence.Interface
 {
     public interface IControlePersist
     {
-        Task<Controle[]> GetAllControleByCondutorAsync(string nome, bool includeAtleta = false);
-        Task<Controle[]> GetAllControleAsync();
+        Task<Controle[]> GetAllControleByAtletaAsync(string nome, bool includeAtleta = false);
+        Task<Controle[]> GetAllControleAsync(bool includeAtleta = false);
         Task<Controle> GetControleByIdAsync(int controleId, bool includeAtleta = false);
     }
 }

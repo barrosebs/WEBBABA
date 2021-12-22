@@ -13,6 +13,9 @@ using Microsoft.OpenApi.Models;
 using AutoMapper;
 using System;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace BABA.API
 {
@@ -34,10 +37,16 @@ namespace BABA.API
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddScoped<IAtletaService, AtletaService>();
             services.AddScoped<IAllPerssit, AllPersist>();
+
+            services.AddScoped<IAtletaService, AtletaService>();
             services.AddScoped<IAtletaPersist, AtletaPersist>();
 
+            services.AddScoped<IMensalidadeService, MensalidadeService>();
+            services.AddScoped<IMensalidadePersist, MensalidadePersist>();
+
+            services.AddScoped<IControleService, ControleService>();
+            services.AddScoped<IControlePersist, ControlePersist>();
             services.AddCors();
 
             services.AddSwaggerGen(c =>
@@ -57,9 +66,12 @@ namespace BABA.API
             }
 
             //app.UseHttpsRedirection();
-            app.UseStaticFiles();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
+            app.UseStaticFiles(new StaticFileOptions(){
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources")),
+                RequestPath = new PathString("/Resources")
+            });
             app.UseRouting();
 
             app.UseAuthorization();

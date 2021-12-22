@@ -6,7 +6,7 @@ namespace BABA.Persistence.Interface
     public interface IMensalidadePersist
     {
         Task<Mensalidade[]> GetAllMensalidadeByAtletaAsync(string nome, bool includeAtleta = false);
-        Task<Mensalidade[]> GetAllMensalidadeAsync();
+        Task<Mensalidade[]> GetAllMensalidadeAsync(bool includeMensalidade = false);
         Task<Mensalidade> GetMensalidadeByIdAsync(int mensalidadeId, bool includeAtleta = false);
     }
 }
