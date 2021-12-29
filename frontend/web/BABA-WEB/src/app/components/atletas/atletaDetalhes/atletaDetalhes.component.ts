@@ -1,6 +1,6 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -18,26 +18,26 @@ import { environment } from '@environments/environment';
   styleUrls: ['./atletaDetalhes.component.css']
 })
 export class AtletaDetalhesComponent implements OnInit {
-
+  @Input() titulo = '';
   public atleta = {} as Atleta;
   public registerForm!: FormGroup;
   public modalRef?: BsModalRef;
-  public datePickerConfig: Partial<BsDatepickerConfig>;
+ /* public datePickerConfig: Partial<BsDatepickerConfig>;*/
   public estadoSalvar = 'post';
   public imageUrl = 'assets/image/upload.png';
-
   constructor(
     private modalService: BsModalService
     , private fb: FormBuilder
     , private localeService: BsLocaleService
-    , private router: ActivatedRoute
+    , private ActiveRouter: ActivatedRoute
     , private atletaService: AtletaService
     , private spinner: NgxSpinnerService
     , private toastr : ToastrService
+    , private router: Router
     
     ) {
       this.localeService.use('pt-br');
-      this.datePickerConfig = Object.assign({}, {containerClass: 'theme-default'})
+    /*  this.datePickerConfig = Object.assign({}, {containerClass: 'theme-default'})*/
    }
 
   ngOnInit(): void {
@@ -53,17 +53,18 @@ export class AtletaDetalhesComponent implements OnInit {
   }
   public validation(): void {
     this.registerForm = this.fb.group({
-      nome:   ['',[Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
-      apelido:  ['',Validators.required],
-      camisa:   ['',Validators.required],
-      posicao:  ['',Validators.required],
-      dataNascimento:   ['',Validators.required],
-      whatsApp:   ['',Validators.required],
-      comissao:   ['',Validators.required],
+      nome:   ['', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
+      apelido:  ['', Validators.required],
+      camisa:   ['', Validators.required],
+      posicao:  ['', Validators.required],
+    /**/  dataNascimento:   ['', Validators.required],
+    comissao:   ['', Validators.required],
+      whatsApp:   ['', Validators.required],
     })
+     console.log(this.registerForm)
   }
   public carregarAtleta(): void{
-    const atletaIdParam = this.router.snapshot.paramMap.get('id');
+    const atletaIdParam = this.ActiveRouter.snapshot.paramMap.get('id');
     if(atletaIdParam !== null){
       this.spinner.show();
 
@@ -74,7 +75,7 @@ export class AtletaDetalhesComponent implements OnInit {
         (atleta: Atleta) => {
           this.atleta = {... atleta};
           this.registerForm.patchValue(this.atleta);
-          if(this.atleta.imageUrl !== ''){
+          if(this.atleta.imageUrl !== '' && this.atleta.imageUrl !== null){
             this.imageUrl = environment.apiUrl + 'resources/images/' + this.atleta.imageUrl;
           }
         },
@@ -125,10 +126,14 @@ export class AtletaDetalhesComponent implements OnInit {
     this.registerForm.reset();
   }
 
-  public cssValidation(campoForm: FormControl): any{
-    return {
-      'is-invalid': campoForm?.errors && campoForm?.touched
-    }
+  public listar(): void{
+    this.router.navigate([
+      `/${this.titulo.toLocaleLowerCase()}/lista`
+    ]);
+    console.log(this.titulo);
+  }
+  public cssValidator(campoForm: FormControl | AbstractControl): any {
+    return { 'is-invalid': campoForm?.errors && campoForm?.touched };
   }
 
   get bsConfig(): any{

@@ -22,7 +22,7 @@ export class AtletaListaComponent implements OnInit {
   public imageLargura = 60;
   public imageMargin = 5;
   public atletaId = 0;
-  public imageUrl = '';
+  public imageUrl = '/backend/src/BABA.API/Resources/images/sem-imagem.png';
   message?: string;
 
     constructor
@@ -74,13 +74,13 @@ export class AtletaListaComponent implements OnInit {
       },
          complete: () => this.spinner.hide()
     });
-
+      console.log(this.atletas);
     
   }
 
 
   public mostraImagem(imageUrl: string): string{
-    return imageUrl !== '' 
+    return imageUrl !== '' && imageUrl !== null
     ? `${environment.apiUrl}resources/images/${imageUrl}`
     : 'assets/image/sem-imagem.png';
   }
