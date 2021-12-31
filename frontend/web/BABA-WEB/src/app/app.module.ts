@@ -34,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
+import { ListaControleComponent } from './components/controle/listaControle/listaControle.component';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -47,6 +48,7 @@ defineLocale('pt-br', ptBrLocale);
       AtletaDetalhesComponent,
       AtletaListaComponent,
       ControleComponent,
+      ListaControleComponent,
       MensalidadeComponent,
       TituloComponent,
       ButtonVoltarComponent,
