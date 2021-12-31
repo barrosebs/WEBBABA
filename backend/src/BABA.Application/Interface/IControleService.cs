@@ -14,7 +14,7 @@ namespace BABA.Application.Interface
         Task<ControleDto> UpdateControle(int controleId, ControleDto model);
         Task<bool> DeleteControle(int controleId);
 
-        Task<ControleDto[]> GetAllControleByAtletaAsync(string condutor, bool includeAtleta = false);
+        Task<ControleDto[]> GetAllControleByAtletaAsync(string controle, bool includeAtleta = false);
         Task<ControleDto[]> GetAllControleAsync(bool includeAtleta = false);
         Task<ControleDto> GetControleByIdAsync(int controleId, bool includeAtleta = false);
     }
