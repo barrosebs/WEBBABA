@@ -1,1 +1,9 @@
-<app-titulo [titulo]="'Sistemas Teste Angular: Controle'"></app-titulo>
+<app-titulo
+  [titulo]="'Controle'"
+  [iconClass]="'fas fa-bookmark'"
+  [botaoListar]="true"
+  [subtitulo]="'Controle/Lançamentos Financeiros'"
+></app-titulo>
+<app-listaControle></app-listaControle>
+<router-outlet>
+</router-outlet>

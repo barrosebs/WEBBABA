@@ -1,6 +1,3 @@
-import { AtletaListaComponent } from './components/atletas/atletaLista/atletaLista.component';
-import { AtletaDetalhesComponent } from './components/atletas/atletaDetalhes/atletaDetalhes.component';
-import { TituloComponent } from './shared/titulo/titulo.component';
 import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,8 +15,12 @@ import { ptBrLocale } from 'ngx-bootstrap/locale';
 
 
 import { MenuComponent } from './shared/menu/menu.component';
+import { TituloComponent } from './shared/titulo/titulo.component';
+import { ButtonVoltarComponent } from './shared/button-voltar/button-voltar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PerfilComponent } from './components/user/perfil/perfil.component';
+import { AtletaListaComponent } from './components/atletas/atletaLista/atletaLista.component';
+import { AtletaDetalhesComponent } from './components/atletas/atletaDetalhes/atletaDetalhes.component';
 import { MensalidadeComponent } from './components/mensalidade/mensalidade.component';
 import { ControleComponent } from './components/controle/controle.component';
 import { AtletasComponent } from './components/atletas/atletas.component';
@@ -33,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
+import { ListaControleComponent } from './components/controle/listaControle/listaControle.component';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -46,8 +48,10 @@ defineLocale('pt-br', ptBrLocale);
       AtletaDetalhesComponent,
       AtletaListaComponent,
       ControleComponent,
+      ListaControleComponent,
       MensalidadeComponent,
       TituloComponent,
+      ButtonVoltarComponent,
       DateTimeFormatPipePipe,
       UserComponent,
       LoginComponent,

@@ -47,6 +47,10 @@ namespace BABA.API
 
             services.AddScoped<IControleService, ControleService>();
             services.AddScoped<IControlePersist, ControlePersist>();
+
+            services.AddScoped<ICategoriaService, CategoriaService>();
+            services.AddScoped<ICategoriaPersist, CategoriaPersist>();
+
             services.AddCors();
 
             services.AddSwaggerGen(c =>

@@ -3,12 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PerfilComponent } from './components/user/perfil/perfil.component';
-import { ControleComponent } from './components/controle/controle.component';
 import { MensalidadeComponent } from './components/mensalidade/mensalidade.component';
 
 import { AtletasComponent } from './components/atletas/atletas.component';
 import { AtletaDetalhesComponent } from './components/atletas/atletaDetalhes/atletaDetalhes.component';
 import { AtletaListaComponent } from './components/atletas/atletaLista/atletaLista.component';
+
+import { ControleComponent } from './components/controle/controle.component';
+import { DetalhesControleComponent } from './components/controle/detalhesControle/detalhesControle.component';
+import { ListaControleComponent } from './components/controle/listaControle/listaControle.component';
 
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
@@ -31,7 +34,14 @@ const routes: Routes = [
       { path: 'lista', component: AtletaListaComponent },
     ]
   },
-  { path: 'controle', component: ControleComponent},
+  { path: 'controle', component: ControleComponent,
+  children: [
+    { path: 'detalhes/:id', component: DetalhesControleComponent },
+    { path: 'detalhes', component: DetalhesControleComponent },
+    { path: 'lista', component: ListaControleComponent },
+  ]
+},
+  
   { path: 'mensalidade', component: MensalidadeComponent},
   { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full'},

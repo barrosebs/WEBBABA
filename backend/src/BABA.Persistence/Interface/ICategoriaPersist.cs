@@ -9,8 +9,7 @@ namespace BABA.Persistence.Interface
 {
     public interface ICategoriaPersist
     {
-        Task<Categoria[]> GetAllCategoriaByAtletaAsync(string nome, bool includeAtleta= false);
         Task<Categoria[]> GetAllCategoriaAsync();
-        Task<Categoria> GetCategoriaByIdAsync(int categoriaId, bool includeAtleta = false);
+        Task<Categoria> GetCategoriaByIdAsync(int categoriaId);
     }
 }

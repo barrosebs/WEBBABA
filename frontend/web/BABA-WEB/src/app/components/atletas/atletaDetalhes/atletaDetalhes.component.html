@@ -1,26 +1,17 @@
-<div class="row">
-  <div class="col-md-8" [ngClass]="{'col-md-6': modoEditar, 'col-md-12': !modoEditar}">
+<div class="row" >
+  <div class="col-md-9" [ngClass]="{'col-md-6': modoEditar, 'col-md-12': !modoEditar}">
     <div class="card rounded shadow-sm p-3">
-      <form [formGroup]="registerForm">
-        <div class="form-row">
-         <!-- <p>form valor: {{ registerForm.value | json }}</p>
-          <p>form status: {{ registerForm.status | json }}</p>
-          <div class="form-group col-md-4">
-            <label>Imagem</label>
+      <!-- <p>form valor: {{ registerForm.value | json }}</p>
+      <p>form status: {{ registerForm.status | json }}</p> -->
+      <form [formGroup]="registerForm" class="row g-3">
+          <div class="col-md-8">
+            <label for="nome" class="form-label">Nome</label>
             <input
-              type="text"
-              class="form-control is-invalid"
-              [ngClass]="cssValidation(f.imageUrl)"
-              formControlName="imageUrl"
-            />
-            <div class="invalid-feedback">O campo IMAGEM é obrigatório!</div>
-          </div>-->
-          <div class="form-group col-md-8">
-            <label>Nome</label>
-            <input
+            id="nome"
+            required
               type="text"
               class="form-control"
-              [ngClass]="cssValidation(f.nome)"
+              [ngClass]="cssValidator(f.nome)"
               formControlName="nome"
               placeholder="Nome do Atleta" [(ngModel)]="atleta.nome"
             />
@@ -43,43 +34,32 @@
               O campo NOME deve conter o máximo de 100 caracteres!
             </div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="col-xs-12 col-md-5 col-lg-4 form-group mb-3">
-            <label>Data de Nascimento</label>
-            <input
-              id="dataNascimento"
-              type="datetime"
-              class="form-control is-invalid"
-              bsDatepicker
-              formControlName="date"
-              [bsConfig]="bsConfig"
-              [ngClass]="cssValidation(f.dataNascimento)"
-              value="{{ atleta.dataNascimento | DateTimeFormatPipe }}"
-              formControlName="dataNascimento"
-              placeholder="Data de nascimento"
-            />
-            <div class="invalid-feedback">
-              O campo DATA DE NASCIMENTO é obrigatório!
-            </div>
+          <div class="col-md-4">
+            <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+            <input type="date" class="form-control" [ngClass]="cssValidator(f.dataNascimento)"
+              value="{{atleta.dataNascimento }}" formControlName="dataNascimento"
+              placeholder="" [(ngModel)]="atleta.dataNascimento">
+              <div *ngIf="f.dataNascimento.errors?.required && f.dataNascimento.touched" class="invalid-feedback">
+                Data de Nascimento é obrigatório.
+              </div>
           </div>
-          <div class="form-group col-md-8">
-            <label>Apelido</label>
+          <div class="col-md-4">
+            <label for="apelido" class="form-label">Apelido</label>
             <input
               type="text"
               class="form-control"
-              [ngClass]="cssValidation(f.apelido)"
+              [ngClass]="cssValidator(f.apelido)"
               formControlName="apelido"
               placeholder="Apelido do Atleta"
             />
             <div class="invalid-feedback">O campo APELIDO é obrigatório!</div>
           </div>
-          <div class="form-group col-md-4">
-            <label>Número do Colete</label>
+          <div class="col-md-4">
+            <label for="camisa" class="form-label">Número do Colete</label>
             <input
               type="text"
               class="form-control is-invalid"
-              [ngClass]="cssValidation(f.camisa)"
+              [ngClass]="cssValidator(f.camisa)"
               formControlName="camisa"
               placeholder="Número do Colete"
             />
@@ -87,91 +67,119 @@
               O campo NUMERO DO COLETE é obrigatório!
             </div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-3">
-            <label>Posição do Atleta</label>
-            <input
-              type="text"
-              class="form-control is-invalid"
-              [ngClass]="cssValidation(f.posicao)"
-              formControlName="posicao"
-              placeholder="Posição de Jogo do Atleta"
-            />
+          <div class="col-md-4">
+            <label for="posicao" class="form-label">Posição do Atleta</label>
+
+            <select  aria-label="Default select example"
+            class="form-control is-invalid"
+            [ngClass]="cssValidator(f.posicao)"
+            formControlName="posicao"
+            >
+            <option selected disabled>Selecione a posição </option>
+              <option value="0">Goleiro</option>
+              <option value="1">Jogador de Linha</option>
+            </select>
             <div class="invalid-feedback">
               O campo POSIÇÃO DO ATLETA é obrigatório!
             </div>
           </div>
-          <div class="form-check form-switch">
+          <div class="form-check form-switch col-md-4">
             <input
+            id="flexSwitchCheckDefault"
               type="checkbox"
               class="form-check-input is-invalid"
-              [ngClass]="cssValidation(f.comissao)"
+              [ngClass]="cssValidator(f.comissao)"
               formControlName="comissao"
               placeholder="O atleta pertence a comissão?"
+              value=false
             />
             <label class="form-check-label" for="flexSwitchCheckDefault">
-              Comissão ?</label
+              Pertencente à Comissão ?</label
             >
             <div class="invalid-feedback">O campo COMISSÃO é obrigatório!</div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <label>Telefone</label>
+          <div class="col-md-4">
+            <label for="apelido" class="form-label">Telefone</label>
             <input
               type="text"
               class="form-control is-invalid"
-              [ngClass]="cssValidation(f.whatsApp)"
+              [ngClass]="cssValidator(f.whatsApp)"
               formControlName="whatsApp"
               placeholder="informe o número de telefone válido?"
+              [(ngModel)]="atleta.whatsApp"
             />
             <div class="invalid-feedback">O campo TELEFONE é obrigatório!</div>
           </div>
-        </div>
         <div class="card-footer p-3">
-          <div >
+          <div class="card">
+            <div class="card-body">
+              
             <button
-              class="btn btn-primary"
+              class="btn btn-outline-success card-link btn-pri"
               (click)="salvarAlteracao()"
               [disabled]="!registerForm.valid"
+             
             >
               Salvar Alterações
             </button>
-          </div>
-          <div>
-            <button class="btn btn-secondary" (click)="resertForm()">
-              Limpar Formulário
-            </button>
-
+            <app-button-voltar
+              [titulo]="'atletas'"
+              [subtitulo]="'lista'"
+              [botaoListar]="true"
+              class="btn btn-outline-secondary card-link"
+              >
+            </app-button-voltar>
+                
+            </div>
           </div>
         </div>
+        
       </form>
     </div>
   </div>
-<div class="col-md-4 card-atleta-show" *ngIf="modoEditar">
-  <div class="card shadow-sm ">
+
+<div class="col-md-3" *ngIf="modoEditar">
+  <div [formGroup]="registerForm" class="card-atleta-view shadow-sm">
     <div class="form-row">
-      <div class="form-group ">
-        <input type="file" #file (change)="onFileChange($event)" class="form-control is-invalid" placeholder="" style="display: none;" />
+      <div class="form-group m-0">
+        <input type="file" #file (change)="onFileChange($event)" class="form-control is-invalid" placeholder="" style="display: none">
       </div>
     </div>
-    <div class="form-group p-3">
-      <img class="image img-fluid" [src]="imageUrl" (click)="file.click()" alt="card para upload de imagem atleta"/>
-    </div>
-      <div class="d-flex p-3 harder"> 
-        <i class="fa fa-user-plus"></i><span class="p-0 fs-4"> Atleta: {{atleta.nome | uppercase }}</span>
+    <div class="card profile-card-2">
+      <div class="card-img-block">
+        <img class="image" [src]="imageUrl" class="img-fluid" (click)="file.click()" alt="Card image cap"
+        tooltip="Uplaod de Nova Imagem" [adaptivePosition]="false" placement="bottom" />
       </div>
-      <div class="p-3">
-        <i class="fa fa-futbol-o"></i><span class=" fs-6"> Número do Colete: {{atleta.camisa }}</span>
+      <div class="card-body pt-3">
+        <h4>{{atleta.nome}}</h4>
+        <p class="card-text">
+          <b>Apelido:</b> {{ atleta.apelido }}
+          <br>
+          <b>Nascimento:</b> {{atleta.dataNascimento | DateTimeFormatPipe }}
+        </p>
+        <hr>
+        <p class="card-text">
+          <b>Contatos</b><br>
+          <small class="text-muted">Telefone: {{atleta.whatsApp}}</small>
+          <br>
+        </p>
 
+        <div class="row">
+          <div class="icon-block col-md-8 iconesSociais">
+            <a href="">
+              <i class=""></i>
+            </a>
+          </div>
+          <!--div class="col-md-4 d-flex justify-content-center">
+            <a href="#" class="btn btn-outline-primary">Participar</a>
+          </div-->
+        </div>
       </div>
     </div>
+  </div>
 </div>
 </div>
-
-<br />
-
+<br>
 <!--MODAL-->
 <ng-template #template>
   <div class="modal-header">

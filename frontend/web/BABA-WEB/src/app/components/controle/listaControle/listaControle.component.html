@@ -1,0 +1,91 @@
+<div class="card rounded-3 shadow-sm p-3">
+  <div class="form-control-lg">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button
+        class="btn btn-primary"
+        type="button"
+        routerLink="/controle/detalhes"
+      >
+        <i class="fa fa-plus"></i>
+        <b class="ml-1 me-2 p-3">Novo</b>
+      </button>
+    </div>
+  </div>
+  <!-- <p>form valor: {{ atletas | json }}</p> -->
+  <table class="table table-striped table-hover">
+    <thead class="tread-dark">
+      <tr>
+        <th class="d-none d-md-table-cell">#</th>
+        <th>Credor Status</th>
+        <th>Vencimento</th>
+        <th>Pagamento Status</th>
+        <th >Valor</th>
+        <th>Detalhes</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr >
+        <td class="d-none d-md-table-cell">
+
+        </td>
+        <td class="d-none d-md-table-cell"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="d-none d-md-table-cell comissao">
+         
+        </td>
+        <td></td>
+        <td>
+          <div>
+            <button
+              type="submit"
+              id="edit"
+              aria-label=""
+              class="btn btn-primary"
+              tooltip="Editar"
+              
+            >
+              <i class="fa fa-edit"></i>
+            </button>
+            <button
+              type="submit"
+              id="trash"
+              aria-label=""
+              class="btn btn-danger"
+              tooltip="Deletar"
+             
+            > <!-- (click)="openModal($event, templateDel, atleta.atletaId)" -->
+              <i class="fa fa-trash"> </i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot >
+      <tr>
+        <td colspan="8" class="text-center alert">
+          <div class="alert alert-warning" role="alert">
+            Nenhum registro encontrato!
+          </div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <ng-template #templateDel>
+    <div class="modal-body text-center">
+      <p>
+        Tem certeza que deseja deletar esse Atleta com código
+        <!-- {{ this.atletaId }}? -->
+      </p>
+      <button type="button" class="btn btn-default" (click)="confirm()">
+        Sim
+      </button>
+      <button type="button" class="btn btn-primary" (click)="decline()">
+        Não
+      </button>
+    </div>
+  </ng-template>
+</div>
