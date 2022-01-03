@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Atleta } from '@app/models/atleta';
 import { AtletaService } from '@app/services/atleta.service';
@@ -72,6 +72,9 @@ export class ListaControleComponent implements OnInit {
         this.spinner.hide();
       }
     )
+  }
+  public openModal(event:any, template: TemplateRef<any>): void{
+    this.modalRef = this.modalService.show(template, {class: 'modal-dialog modal-dialog-centered modal-dialog-scrollable'});
   }
 
   public decline(): void {
