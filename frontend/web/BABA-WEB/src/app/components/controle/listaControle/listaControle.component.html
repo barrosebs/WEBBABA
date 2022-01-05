@@ -82,9 +82,118 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="decline()"></button>
         </div>
         <div class="modal-body">
-          <p>This is some placeholder content to show a vertically centered modal. We've added some extra copy here to show how vertically centering the modal works when combined with scrollable modals. We also use some repeated line breaks to quickly extend the height of the content, thereby triggering the scrolling. When content becomes longer than the prefedined max-height of modal, content will be cropped and scrollable within the modal.</p>
-          <br><br><br><br><br><br><br><br>
-          <p>Just like that.</p>
+          <div class="row" >
+            <div class="col-md-12" >
+              <div class="card rounded shadow-sm p-3">
+                <!-- <p>form valor: {{ registerForm.value | json }}</p>
+                <p>form status: {{ registerForm.status | json }}</p> -->
+                <form [formGroup]="registerForm" class="row g-3">
+                    <div class="col-md-12">
+                      <label for="nome" class="form-label">Nome</label>
+                      <!--criar uma chamada para listar nome do atleta-->
+                      <input
+                      id="nome"
+                      required
+                        type="text"
+                        class="form-control"
+                        [ngClass]="cssValidator(f.nome)"
+                        formControlName="nome"
+                        placeholder="Nome do Credor" [(ngModel)]="atleta.nome"
+                      />
+                      <div
+                        *ngIf="f.nome?.hasError('required') && f.nome?.touched"
+                        class="invalid-feedback"
+                      >
+                        O campo NOME é obrigatório!
+                      </div>
+                      <div
+                        *ngIf="f.nome?.hasError('minlength') && f.nome?.touched"
+                        class="invalid-feedback"
+                      >
+                        O campo NOME deve conter o mínimo de 4 caracteres!
+                      </div>
+                      <div
+                        *ngIf="f.nome?.hasError('maxlength') && f.nome?.touched"
+                        class="invalid-feedback"
+                      >
+                        O campo NOME deve conter o máximo de 100 caracteres!
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="dataNascimento" class="form-label">Vencimento</label>
+                      <input type="date" class="form-control" [ngClass]="cssValidator(f.dataNascimento)"
+                        value="{{atleta.dataNascimento }}" formControlName="dataNascimento"
+                        placeholder="" [(ngModel)]="atleta.dataNascimento">
+                        <div *ngIf="f.dataNascimento.errors?.required && f.dataNascimento.touched" class="invalid-feedback">
+                          Data de Nascimento é obrigatório.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="dataPagamento" class="form-label">Data de Pagamento</label>
+                      <input type="date" class="form-control" [ngClass]="cssValidator(f.dataNascimento)"
+                        value="{{atleta.dataNascimento }}" formControlName="dataNascimento"
+                        placeholder="" [(ngModel)]="atleta.dataNascimento">
+                        <div *ngIf="f.dataNascimento.errors?.required && f.dataNascimento.touched" class="invalid-feedback">
+                          Data de Nascimento é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="obs" class="form-label">Observação</label>
+                      <input type="text" class="form-control" [ngClass]="cssValidator(f.dataNascimento)"
+                        value="{{atleta.dataNascimento }}" formControlName="obs"
+                        placeholder="" [(ngModel)]="atleta.dataNascimento">
+
+                      <div class="invalid-feedback">
+                        O campo POSIÇÃO DO ATLETA é obrigatório!
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="categoria" class="form-label">Categoria</label>
+                      <select class="form-control" id="categoria" aria-label="Default select example"
+                      class="form-control is-invalid"
+                      [ngClass]="cssValidator(f.posicao)"
+                      formControlName="posicao">
+                        <option value="0">Mensalidade</option>
+                        <option value="1">Árbitro</option>
+                      </select>
+                        <!--Preecher de forma automática-->
+                      <div class="invalid-feedback">
+                        O campo POSIÇÃO DO ATLETA é obrigatório!
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="posicao" class="form-label">Situação</label>
+                      <select class="form-control" id="select" aria-label="Default select example"
+                      class="form-control is-invalid"
+                      [ngClass]="cssValidator(f.posicao)"
+                      formControlName="posicao">
+                        <option value="0">Débito</option>
+                        <option value="1">Crédito</option>
+                      </select>
+
+                      <div class="invalid-feedback">
+                        O campo SITUAÇÃO é obrigatório!
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="camisa" class="form-label">Valor</label>
+                      <input
+                        type="text"
+                        class="form-control is-invalid"
+                        [ngClass]="cssValidator(f.camisa)"
+                        formControlName="camisa"
+                        placeholder="Número do Colete"
+                      />
+                      <div class="invalid-feedback">
+                        O campo NUMERO DO COLETE é obrigatório!
+                      </div>
+                    </div>
+                  
+                </form>
+              </div>
+            </div>
+          
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-success" (click)="confirm()">
@@ -103,5 +212,5 @@
         </button>
         </div>
       </div>
+    </div>
   </ng-template>
-</div>

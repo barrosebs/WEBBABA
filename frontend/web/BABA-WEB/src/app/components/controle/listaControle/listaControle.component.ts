@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Atleta } from '@app/models/atleta';
 import { AtletaService } from '@app/services/atleta.service';
@@ -13,13 +14,13 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./listaControle.component.css']
 })
 export class ListaControleComponent implements OnInit {
-
+  public atleta = {} as Atleta;
   public atletas?: Atleta[];
   public modalRef?: BsModalRef;
   public message?: string;
   public atletaId = 0;
   public imageUrl = '/backend/src/BABA.API/Resources/images/sem-imagem.png';
-
+  public registerForm!: FormGroup;
   public atletasFiltrados?: Atleta[];
 
   constructor(
@@ -82,4 +83,10 @@ export class ListaControleComponent implements OnInit {
     this.modalRef?.hide();
   }
 
+  public cssValidator(campoForm: FormControl | AbstractControl): any {
+    return { 'is-invalid': campoForm?.errors && campoForm?.touched };
+  }
+  get f():any{
+    return this.registerForm.controls;
+  }
 }
