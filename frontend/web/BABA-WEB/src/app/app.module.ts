@@ -35,6 +35,8 @@ import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { ListaControleComponent } from './components/controle/listaControle/listaControle.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -55,11 +57,13 @@ defineLocale('pt-br', ptBrLocale);
       DateTimeFormatPipePipe,
       UserComponent,
       LoginComponent,
-      RegistrationComponent
+      RegistrationComponent,
+      
    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CollapseModule.forRoot(),
     BsDatepickerModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
@@ -75,7 +79,8 @@ defineLocale('pt-br', ptBrLocale);
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CurrencyMaskModule
   ],
   providers: [
     AtletaService
