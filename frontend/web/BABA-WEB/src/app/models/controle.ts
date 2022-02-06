@@ -9,6 +9,8 @@ export interface Controle {
   status: number;
   categoria: Categoria;
   dataCadastro: Date;
+  dataPagamento: Date;
   mensalidadeId: number;
   mensalidade: Mensalidade;
+  preco: number;
 }
